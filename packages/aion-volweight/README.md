@@ -1,4 +1,4 @@
-# AION VolWeight
+# aion-volweight
 
 **VIX-based Sentiment Confidence Adjustment for the AION Open Source Ecosystem**
 

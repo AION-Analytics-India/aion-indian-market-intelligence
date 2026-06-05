@@ -1,4 +1,4 @@
-# AION NewsImpact
+# aion-newsimpact
 
 **Historical News Impact Analysis using Semantic Search for the AION Open Source Ecosystem**
 

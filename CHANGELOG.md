@@ -2,6 +2,13 @@
 *Auto-maintained by Qwen Code + aion_algo_trading rules*
 *Revert any change by finding timestamp and restoring from .bkup_{date} backup*
 
+## [Package Cleanup] — 2026-06-05
+### Changed
+- Added package-local AGENTS.md doctrine for aion-sectormap, aion-volweight, aion-newsimpact, and aion-taxonomy.
+- Normalized package README H1 headings to package names for aion-sectormap, aion-volweight, aion-newsimpact, and aion-taxonomy.
+- Updated aion-sectormap package fallback data path from the old root-level location to packages/aion-sectormap.
+- Bumped aion-indian-market-intelligence PyPI package metadata to 1.0.5 and wired the PyPI long description to PYPI_DESCRIPTION.md content.
+
 ## [Security] — 2026-06-04
 ### Fixed
 - Added *.db, *.sqlite, *.sqlite3 to .gitignore (critical gap)

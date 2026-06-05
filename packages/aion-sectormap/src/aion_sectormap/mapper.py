@@ -119,7 +119,7 @@ class SectorMapper:
                 os.path.join(os.path.dirname(__file__), 'data', 'sector_map.json'),
                 os.path.join(os.path.dirname(__file__), '..', 'data', 'sector_map.json'),
                 'src/aion_sectormap/data/sector_map.json',
-                'aion-sectormap/src/aion_sectormap/data/sector_map.json',
+                'packages/aion-sectormap/src/aion_sectormap/data/sector_map.json',
             ]
             for path in possible_paths:
                 if os.path.exists(path):

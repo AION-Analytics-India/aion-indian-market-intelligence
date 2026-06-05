@@ -4,9 +4,9 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "aion-indian-market-intelligence"
-version = "1.0.4"
+version = "1.0.5"
 description = "Macro-event and sector impact intelligence for Indian financial markets. Structured analysis of how policy, economic, weather, and geopolitical events affect Indian market sectors."
-readme = "README.md"
+readme = "PYPI_DESCRIPTION.md"
 requires-python = ">=3.10"
 license = { text = "AGPL-3.0-or-later" }
 authors = [
