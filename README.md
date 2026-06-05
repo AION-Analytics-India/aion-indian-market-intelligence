@@ -1,4 +1,4 @@
-[![Version](https://img.shields.io/badge/version-1.0.3-blue)](https://pypi.org/project/aion-indian-market-intelligence/)
+[![Version](https://img.shields.io/badge/version-1.0.5-blue)](https://pypi.org/project/aion-indian-market-intelligence/)
 
 # AION Indian Market Intelligence for Macro Event & Sector Impact Analysis
 
@@ -31,16 +31,8 @@ export AION_API_KEY="<your_api_key>"
 ## Canonical Imports
 
 ```python
-from aion_news_to_signal import analyze
+from aion_indian_market_intelligence import analyze
 ```
-
-Legacy compatibility alias:
-
-```python
-from aion import analyze
-```
-
-This alias remains supported and routes through the managed AION API.
 
 ## API Contract
 
@@ -82,11 +74,7 @@ Observed top-level output keys:
     "negative_bias": []
   },
   "stakeholder_views": {},
-  "raw_assignment": {
-    "resolved_event_id": "string|null",
-    "cause_effect_rule_id": "string|null",
-    "weather_triggered": "bool"
-  }
+  "raw_assignment": {}
 }
 ```
 
@@ -131,7 +119,7 @@ Example view:
 ```
 
 This is macroeconomic event API output for Indian Market Intelligence for Macro
-Event & Sector Impact Analysis. It is not broker execution guidance.
+Event & Sector Impact Analysis. It is structured interpretation, not advice.
 
 ## Before / After
 
@@ -237,9 +225,9 @@ Enterprise: custom, GPU-dedicated. Contact via dashboard.
 - GitHub repository:
   - `https://github.com/AION-Analytics/aion-indian-market-intelligence`
 - Hugging Face model surface:
-  - `https://huggingface.co/AION-Analytics/aion-news-to-signal`
+  - `https://huggingface.co/AION-Analytics/aion-indian-market-intelligence`
 - Hugging Face demo Space:
-  - `https://huggingface.co/spaces/AION-Analytics/aion-news-to-signal`
+  - `https://huggingface.co/spaces/AION-Analytics/aion-indian-market-intelligence`
 - MCP server repo:
   - `https://github.com/AION-Analytics/aion-mcp-server`
 - MCP marketplace maintenance register:
@@ -251,8 +239,5 @@ Enterprise: custom, GPU-dedicated. Contact via dashboard.
 - weather and crop coverage still depends on explicit cues in the headline
 - sparse headlines can remain ambiguous
 - pricing and latency tiers above are current commercial positioning and may evolve
-- this repository does not contain model weights. The PyPI package provides client tooling only. Production inference requires the hosted API.
-
-Compatibility note: the Python import path remains `aion_news_to_signal`, and
-some legacy slugs remain visible as redirects or repository identifiers. They
-are not the public product identity.
+- this repository does not contain model weights, production coefficients, private taxonomy files, training scripts, or backend API server code
+- the PyPI package provides client tooling only. Production inference requires the hosted API.

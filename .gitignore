@@ -209,7 +209,72 @@ INVENTION_FAMILY_SEPARATION.md
 INVENTION_FAMILY_SEPARATION_v2.md
 
 # Production backend (never public)
-src/api/
+/src/
+/src/api/
+
+# Public repo hardening: private runtime, taxonomy, training, review, and agent state
+/AGENTS.md
+/CLAUDE.md
+/_control_tower/
+/archive/
+/aion.py
+/aion_news_to_signal/
+/aion_news_to_signal_self_hosted/
+/aion_taxonomy/
+/aion_indian_market_calendar/
+/wheel_build/
+/ops/
+/scripts/
+/data/
+/datasets/
+/dataset/
+/continue/
+/hf_model_aion_news_to_signal/
+/hf_space_aion_news_to_signal/
+/pypi_aion_news_to_signal/
+/deployment_metrics.json
+/LICENSE.BSL11
+/Dockerfile
+
+# Proprietary inference and training files
+/sector_propagation_engine.py
+/stakeholder_impact_mapper.py
+/dependency_weight_propagator.py
+/dynamic_macro_propagator.py
+/vocabulary_expander.py
+/briefing_generator.py
+/multi_task_model.py
+/pipeline_e2e_test.py
+/cause_effect_rule_classifier_v3/
+/cause_effect_rule_training_v3_summary.json
+/real_weather_rule_matches_v3_summary.json
+/synthetic_weather_rule_headlines_v3_summary.json
+/*_demo_report.json
+/*_demo_briefings.md
+
+# Private taxonomy/rule/calibration assets
+/primitives.yaml
+/events.yaml
+/events_primitive_format.yaml
+/sector_matrix.yaml
+/cause_effect_rules*.yaml
+/taxonomy_india*.yaml
+/*sensitivities*.json
+/*sensitivity*.json
+/*rule*.json
+
+# Internal agent/audit/migration files
+*_AUDIT.md
+*_BLUEPRINT.md
+*_SYSTEM_MAP.md
+OPEN_SOURCE_SYSTEM_MAP.md
+SYSTEM_BOUNDARY_AUDIT.md
+STAGING_BOUNDARY_AUDIT.md
+ARCHIVE_STAGE_AUDIT.md
+GITIGNORE_EXPOSURE_AUDIT.md
+MIGRATION_EXECUTION_BLUEPRINT.md
+DIRECTORY_REORGANIZATION_BLUEPRINT.md
+CLAUDE_OPUS_TASK_*.md
 
 # Codex/AI agent task files (internal only)
 CODEX_TASK_*.md

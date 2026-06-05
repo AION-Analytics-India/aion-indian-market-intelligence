@@ -1,22 +1,22 @@
 # aion-volweight
 
-VIX-regime confidence weighting for Indian market sector signals.
+VIX-regime confidence weighting for Indian market sector impact analysis.
 
 ![PyPI](https://img.shields.io/pypi/v/aion-volweight)
 ![Python](https://img.shields.io/pypi/pyversions/aion-volweight)
 ![License](https://img.shields.io/badge/License-Apache_2.0-blue)
 
-`aion-volweight` scales the confidence of sector signals based on the prevailing
-**India VIX** **volatility regime**. When volatility is elevated, signal
+`aion-volweight` scales sector impact confidence based on the prevailing
+**India VIX** **volatility regime**. When volatility is elevated, impact
 confidence is discounted; in calm markets it is preserved. This is useful for
-**Indian market volatility** adjustment and **sector signal confidence**
+**Indian market volatility** adjustment and **sector impact confidence**
 calibration.
 
 ## What It Does
 
 Given a VIX value, the package classifies the market into a volatility regime
 (low / normal / elevated / extreme) and applies a corresponding multiplier to a
-confidence score or to a column of sector signals.
+confidence score or to a column of sector impact values.
 
 ## Installation
 
@@ -39,18 +39,18 @@ adjusted = adjust_confidence(0.90, vix)  # confidence scaled for this VIX
 
 ## DataFrame Weighting
 
-Adjust a column of signal confidences for the current VIX:
+Adjust a column of impact confidences for the current VIX:
 
 ```python
 import pandas as pd
 from aion_volweight import weight_confidence
 
-signals = pd.DataFrame({
+sector_impacts = pd.DataFrame({
     "sector": ["Banks", "IT", "Auto", "Energy"],
     "sentiment_confidence": [0.95, 0.80, 0.70, 0.85],
 })
 
-weighted = weight_confidence(signals, vix_value=22.0)
+weighted = weight_confidence(sector_impacts, vix_value=22.0)
 print(weighted[["sector", "sentiment_confidence",
                 "sentiment_confidence_adjusted"]])
 ```
@@ -59,7 +59,7 @@ You can name the output column explicitly:
 
 ```python
 weighted = weight_confidence(
-    signals,
+    sector_impacts,
     vix_value=22.0,
     confidence_col="sentiment_confidence",
     output_col="vol_adjusted_confidence",

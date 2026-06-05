@@ -4,7 +4,7 @@
 
 ## Identity
 - VIX-regime-based confidence multiplier for sector impact vectors
-- Scales sector signal confidence based on prevailing volatility regime
+- Scales sector impact confidence based on prevailing volatility regime
 - Public package
 - PyPI: aion-volweight
 

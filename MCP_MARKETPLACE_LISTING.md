@@ -2,20 +2,20 @@
 # AION Indian Market Intelligence
 
 **Name:** AION Indian Market Intelligence
-**Tagline:** Turn Indian financial news into NSE sector signals.
+**Tagline:** Macro-event and sector impact intelligence for Indian financial markets.
 **Category:** Finance / Data Analysis
 
 **Description:**
-AION Indian Market Intelligence lets Claude convert Indian financial news headlines into structured NSE sector impact vectors. It classifies each headline into a macro event type, propagates the impact across 32 NSE sectors, and applies a VIX volatility overlay, returning a JSON `sector_vector`. Built specifically for Indian markets, it covers monetary policy, fiscal action, SEBI regulation, and commodity events — giving Claude a quantitative read on how any Indian financial news event is likely to move individual sectors.
+AION Indian Market Intelligence lets Claude request structured macro event analysis and sector impact analysis for Indian financial headlines. It returns a JSON object centered on `sector_vector`, with event metadata and sector exposure intelligence from the managed AION API. Built for Indian market workflows, it covers policy, economic, weather, commodity, and geopolitical event interpretation without exposing private runtime logic or presenting the output as investment advice.
 
 **Capabilities:**
-- Classify an Indian financial news headline into a macro event type
-- Generate an NSE sector impact vector for any headline
-- Assess SEBI / RBI policy impact across sectors
-- Apply a VIX-regime overlay to scale signal confidence
-- Return structured JSON signals for downstream models
+- Request macro event analysis for Indian financial headlines
+- Return sector impact analysis through the canonical `sector_vector`
+- Assess policy impact analysis for RBI, SEBI, fiscal, commodity, weather, and geopolitical events
+- Provide event-driven market intelligence for dashboards, copilots, and review workflows
+- Keep the tool boundary explicit: structured interpretation, not trade execution or advice
 
 **Example prompts:**
-1. "Analyze this headline for NSE sector impact: 'RBI holds repo rate steady, signals end of tightening cycle.'"
+1. "Analyze this headline for NSE sector impact: 'RBI holds repo rate steady and indicates the tightening cycle may pause.'"
 2. "How would a SEBI tightening of F&O margin rules affect Indian broking and AMC sectors?"
-3. "Convert today's RBI policy headline into a sector_vector I can feed my premarket model."
+3. "Convert today's RBI policy headline into a sector_vector for an internal market-intelligence dashboard."

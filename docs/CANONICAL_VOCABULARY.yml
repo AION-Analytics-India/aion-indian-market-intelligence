@@ -1,0 +1,34 @@
+canonical_identity:
+  primary_name: AION Indian Market Intelligence
+  primary_description: Macro-event and sector impact intelligence for Indian financial markets.
+  secondary_description: Structured analysis of how policy, economic, weather, commodity, and geopolitical events affect Indian market sectors.
+
+canonical_terms:
+  - macro event intelligence
+  - sector impact analysis
+  - sector propagation engine
+  - financial causality mapping
+  - market impact ontology
+  - event-to-sector reasoning
+  - macroeconomic event API
+  - sector exposure intelligence
+  - policy impact mapping
+  - event-driven financial inference
+  - financial event ontology
+  - sectoral impact engine
+
+public_boundary:
+  allowed:
+    - problem framing
+    - output examples
+    - API usage
+    - MCP usage
+    - dashboard links
+  excluded:
+    - model weights
+    - private taxonomy files
+    - production coefficients
+    - backend API server code
+    - training scripts
+    - calibration scripts
+    - autonomous review queues
