@@ -2,13 +2,16 @@
 # Last updated: 2026-06-05
 
 ## Current Mission
-README rewrite for all 4 packages via Claude Opus.
+COMPLETE — aion-indian-market-intelligence rename and reorganization merged to main.
+Commit: 444861e
 
-## Pending After README Rewrite
-1. Fix aion-volweight missing get_regime_summary export
-2. Fix aion_taxonomy fixture validation mismatch
-3. Merge frontend-api-contract-v1 to main
-4. Resolve wheel_build/ divergent copies
+## Next Missions (priority order)
+1. Fix aion-volweight missing get_regime_summary export — test failure
+2. Fix aion_taxonomy fixture validation mismatch — test failure  
+3. Resolve wheel_build/ divergent copies
+4. Resolve aion_news_to_signal_self_hosted/ weights bundling doctrine
+5. Move aion-newsimpact to packages/ after dep validation
+6. Update deployment_metrics.json HF Space endpoints (Space renamed — endpoints need update)
 
 ## Blocked
-- Platform updates for deployment_metrics.json (HF Space slug confirmed renamed — update endpoints)
+- src/api/ → private repo (import roots need resolution first)
