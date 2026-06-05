@@ -10,6 +10,7 @@
 - Bumped aion-indian-market-intelligence PyPI package metadata to 1.0.5 and wired the PyPI long description to PYPI_DESCRIPTION.md content.
 - Aligned aion-taxonomy source examples and README with taxonomy_india_v2_calibrated.yaml as the canonical taxonomy file.
 - Replaced package READMEs for aion-sectormap, aion-volweight, aion-newsimpact, and aion-taxonomy with approved API-accurate documentation.
+- Updated aion-indian-market-calendar Homepage metadata to the public documentation-only GitHub repo.
 
 ## [Security] — 2026-06-04
 ### Fixed
