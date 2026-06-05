@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from aion_news_to_signal import AIONClient, AIONError, analyze
+from aion_indian_market_intelligence import AIONClient, AIONError, analyze
 
 
 def get_pipeline(

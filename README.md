@@ -1,30 +1,34 @@
-# AION India Event Intelligence
+[![Version](https://img.shields.io/badge/version-1.0.3-blue)](https://pypi.org/project/aion-indian-market-intelligence/)
 
-Convert Indian financial headlines into structured sector-level intelligence using causal propagation — not sentiment, not trading signals.
+# AION Indian Market Intelligence for Macro Event & Sector Impact Analysis
 
-Formerly `aion-news-to-signal`.
+Indian Market Intelligence for Macro Event & Sector Impact Analysis.
 
-![Version](https://img.shields.io/badge/version-1.0.2-blue)
+Indian Market Intelligence for Macro Event & Sector Impact Analysis is the
+single public identity for this product. It is an API for Indian SaaS
+developers, professional coders, LLM tools, dashboards, and analyst workflows
+that need macro event intelligence and sector impact analysis from Indian
+financial headlines.
 
-## LLM Capture
+AION Indian Market Intelligence for Macro Event & Sector Impact Analysis
+converts raw Indian financial headlines into market impact ontology output. It
+answers: what happened, which sectors are exposed, which stakeholders are
+affected, and which macro effects are in play. It does not tell you what to
+trade.
 
-### Component
-
-The `aion-news-to-signal` package exposes AION India Event Intelligence for NSE-focused workflows.
-
-### Install
+## Install
 
 ```bash
-pip install aion-news-to-signal
+pip install aion-indian-market-intelligence
 ```
 
-### API Key Setup
+## API Key Setup
 
 ```bash
 export AION_API_KEY="<your_api_key>"
 ```
 
-### Canonical Imports
+## Canonical Imports
 
 ```python
 from aion_news_to_signal import analyze
@@ -36,17 +40,31 @@ Legacy compatibility alias:
 from aion import analyze
 ```
 
-This alias is still supported, but it routes to the managed AION API rather than a local runtime.
+This alias remains supported and routes through the managed AION API.
 
-### Python API
+## API Contract
 
-Signature:
+Production usage flows through the managed AION API:
+
+- `POST https://api.aiondashboard.site/v1/analyze`
+- header:
+  - `X-API-Key: <key>`
 
 ```python
-analyze(headline: str, published_at: str | None = None) -> dict
+import requests
+
+headers = {"X-API-Key": "YOUR_API_KEY"}
+resp = requests.post(
+    "https://api.aiondashboard.site/v1/analyze",
+    headers=headers,
+    json={"headline": "RBI hikes repo rate by 25 bps"},
+    timeout=30,
+)
+resp.raise_for_status()
+print(resp.json()["sector_vector"])
 ```
 
-### Output Contract
+## Output Contract
 
 Observed top-level output keys:
 
@@ -74,201 +92,167 @@ Observed top-level output keys:
 
 Canonical key note:
 
-- `sector_vector` is the full scored sector impact map
+- `sector_vector` is the canonical output key for sector impact analysis
 - there is no `sector_impacts` key in the public output contract
 
-### Usage
+## Output-Centric Example
 
-```python
-from aion_news_to_signal import analyze
+Input:
 
-result = analyze("RBI hikes repo rate by 25 bps")
-print(result["sector_vector"])
+```text
+RBI unexpectedly raises repo rate by 50 bps
 ```
 
-### API Contract
+Example view:
 
-This package is a client interface for the AION API.
-
-- Requires API key
-- Enforces quota limits
-- No local model execution guaranteed
-- All production usage flows through API endpoints
-
-Managed endpoint:
-
-- `POST https://api.aiondashboard.site/v1/analyze`
-
-Copy-paste example:
-
-```python
-import requests
-
-response = requests.post(
-    "https://api.aiondashboard.site/v1/analyze",
-    headers={"X-API-Key": "<your_api_key>"},
-    json={"headline": "Heatwave in Punjab damages wheat crop and threatens food inflation"},
-    timeout=30,
-)
-response.raise_for_status()
-print(response.json()["sector_vector"])
+```json
+{
+  "event": "repo_rate_hike",
+  "sector_vector": {
+    "Information Technology": 0.18,
+    "Realty": -0.52,
+    "Financial Services": -0.31,
+    "Automobile and Auto Components": -0.26
+  },
+  "top_positive_sectors": {
+    "Information Technology": 0.18
+  },
+  "top_negative_sectors": {
+    "Realty": -0.52,
+    "Financial Services": -0.31,
+    "Automobile and Auto Components": -0.26
+  },
+  "macro_effects": {
+    "liquidity": "tightening",
+    "credit_growth": "slowing",
+    "policy_impact_mapping": "rate-sensitive sectors under pressure"
+  }
+}
 ```
 
-### Use This For
+This is macroeconomic event API output for Indian Market Intelligence for Macro
+Event & Sector Impact Analysis. It is not broker execution guidance.
 
-- Indian financial headline classification
-- sector-level impact estimation
-- compact sector bias extraction
-- stakeholder-aware market explanation
-- bots, dashboards, research tools, and LLM workflows
-
-### Do Not Use This For
-
-- direct order execution without your own risk layer
-- price prediction from text alone
-- broker connectivity
-- compliance, advisory, or portfolio suitability decisions
-
-### Runtime Surfaces
-
-- managed Python client:
-  - `aion_news_to_signal/`
-- managed API:
-  - `https://api.aiondashboard.site/v1/analyze`
-- API access page:
-  - `https://dashboard.aiondashboard.site/models/news-to-signal`
-- PyPI package:
-  - `https://pypi.org/project/aion-news-to-signal/`
-
-## Human Understanding
-
-Indian market news is usually more complex than positive-or-negative sentiment.
-
-A headline can affect:
-
-- one sector directly
-- a second sector through supply chains
-- another stakeholder through fiscal, policy, or import/export effects
-- the final market-context read differently depending on volatility regime
-
-That is why this system is built as a market-intelligence layer, not just a sentiment model.
-
-It tries to answer questions like:
-
-- what happened?
-- which sectors are likely to benefit or get hurt?
-- what compact positive/negative sector bias follows from the headline?
-- how should a trader, producer, investor, or policymaker read the same event differently?
-
-For an aspiring developer, the practical takeaway is:
-
-- sentiment alone is not enough for trading logic
-- you need event resolution
-- you need sector propagation
-- you need justification fields so your downstream layer can decide whether to trust or ignore the structured output
-
-For LLM workflows, the value is that the output is already structured. The model is easier to chain into:
-
-- market-monitoring dashboards
-- screening pipelines
-- broker-side validation layers
-- explanation layers in SaaS tools
-
-## Basic English Example
+## Before / After
 
 Headline:
+> Unseasonal rainfall and hailstorm hit apple orchards in Himachal Pradesh in April
 
-`Unseasonal rainfall and hailstorm hit apple orchards in Himachal Pradesh`
-
-What a basic sentiment model usually says:
-
+Typical polarity-only output:
 - negative
 
-What this system tries to say instead:
+AION Indian Market Intelligence for Macro Event & Sector Impact Analysis output:
+- event / rule: `rain_apple_damage`
+- likely losers: `Agriculture & Horticulture`, `Transportation`, `Consumer Services`
+- potential second-order beneficiaries: storage-linked or substitute supply chains
+- stakeholder view: producer losses, policymaker inflation watch, investor attention on downstream second-order effects
 
-- the event is agricultural weather damage
-- agriculture-linked sectors may be pressured
-- transportation and downstream supply chains may also feel it
-- some substitute suppliers or storage-linked segments may benefit
-- the downstream system may want a different response than a policymaker or producer
+Market implication: agriculture-linked exposure under pressure, logistics
+bottlenecks possible, substitute supply chains may benefit.
 
-## Technical Example
+## What AION Indian Market Intelligence for Macro Event & Sector Impact Analysis Does
 
-```python
-from aion_news_to_signal import analyze
+- provides Indian macro event intelligence from financial headlines
+- provides sector impact analysis through the canonical `sector_vector`
+- supports financial causality mapping and event-to-sector reasoning
+- returns sector exposure intelligence for dashboards, agents, and internal tooling
+- supports policy impact mapping and event-driven financial inference without
+  collapsing into execution language
 
-headline = "Unseasonal rainfall and hailstorm hit apple orchards in Himachal Pradesh"
-result = analyze(headline)
+## Why Not Polarity-Only NLP?
 
-print(result["event"])
-print(result["sector_vector"])
-print(result["stakeholder_views"])
-print(result["sector_directional_bias"])
-```
+Most open-source financial NLP tools stop at polarity scoring.
+
+| Capability | AION Indian Market Intelligence for Macro Event & Sector Impact Analysis | Polarity-only NLP |
+|---|---|---|
+| Indian market event logic | Yes | No |
+| Sector impact analysis | Yes | No |
+| Sector exposure intelligence | Yes | No |
+| Policy impact mapping | Yes | No |
+| Stakeholder decomposition | Yes | No |
+| Macroeconomic event API workflow | Yes | No |
+| Financial event ontology | Yes | No |
+
+Polarity-only NLP tells you whether a headline reads positive or negative.
+
+AION Indian Market Intelligence for Macro Event & Sector Impact Analysis tells you:
+
+- what happened
+- which sectors are affected and in what direction
+- who gains and who loses
+- whether there is a flip side
+- what the evidence layer suggests for further human or system review
+
+## Canonical Vocabulary
+
+Public docs, model cards, PyPI copy, MCP copy, and dashboard pages use
+`Indian Market Intelligence for Macro Event & Sector Impact Analysis` as the
+single identity phrase. Supporting vocabulary is maintained in
+`docs/CANONICAL_VOCABULARY.yml`.
+
+Primary phrases include:
+
+- macro event intelligence
+- sector impact analysis
+- sector propagation engine
+- financial causality mapping
+- market impact ontology
+- event-to-sector reasoning
+- macroeconomic event API
+- sector exposure intelligence
+- policy impact mapping
+- event-driven financial inference
+- financial event ontology
+- sectoral impact engine
+
+These phrases are intentional for human search, PyPI discovery, Hugging Face
+indexing, GitHub topics, MCP registry copy, and LLM retrieval embeddings.
+
+## Pricing & Tiers (Draft — Current as of May 2026)
+
+All tiers require an API key. Sign up at
+`https://dashboard.aiondashboard.site/access/register`
+
+| Tier | Requests/month | Latency |
+|---|---:|---|
+| Free | 1,000 | Shared |
+| Builder | 15,000 | Shared |
+| Pro | 75,000 | Priority |
+| Power | 250,000 | Dedicated |
+
+Enterprise: custom, GPU-dedicated. Contact via dashboard.
 
 ## Access And Links
 
-- PyPI:
-  - `https://pypi.org/project/aion-news-to-signal/`
+- API gateway:
+  - `https://dashboard.aiondashboard.site/systems/api-gateway`
+- Website model page:
+  - `https://dashboard.aiondashboard.site/models/indian-market-intelligence`
+- API key registration:
+  - `https://dashboard.aiondashboard.site/access/register`
+- Managed API:
+  - `https://api.aiondashboard.site/v1/analyze`
+- PyPI package:
+  - `https://pypi.org/project/aion-indian-market-intelligence/`
+- GitHub repository:
+  - `https://github.com/AION-Analytics/aion-indian-market-intelligence`
 - Hugging Face model surface:
   - `https://huggingface.co/AION-Analytics/aion-news-to-signal`
-- Hugging Face live demo:
+- Hugging Face demo Space:
   - `https://huggingface.co/spaces/AION-Analytics/aion-news-to-signal`
-- Website model page:
-  - `https://dashboard.aiondashboard.site/models/news-to-signal`
 - MCP server repo:
   - `https://github.com/AION-Analytics/aion-mcp-server`
-- MCP Registry:
-  - `https://registry.modelcontextprotocol.io/v0.1/servers/io.github.AION-Analytics%2Faion-news-to-signal/versions/1.0.2`
-- Use cases:
-  - `docs/USE_CASES.md`
-
-## Pricing And Access Notes
-
-Draft access model:
-
-| Tier | Price (INR) | Requests/month | Best for |
-|---|---:|---:|---|
-| Free | ₹0 | 1,000 | evaluation and prototypes |
-| Builder | ₹299 | 15,000 | small tools and side projects |
-| Pro | ₹999 | 75,000 | production SaaS or internal desks |
-| Power | ₹2,999 | 250,000 | larger teams and heavier workloads |
-| Enterprise | Custom | Unlimited | dedicated deployment needs |
-
-Public signup links:
-
-- free:
-  - `https://api.aiondashboard.site/signup/free`
-- paid:
-  - `https://api.aiondashboard.site/signup/paid?plan=pro`
+- MCP marketplace maintenance register:
+  - `docs/MCP_MARKETPLACE_MAINTENANCE.md`
 
 ## Current Limits
 
 - production usage is quota-controlled at the API layer
 - weather and crop coverage still depends on explicit cues in the headline
-- the primitive sector matrix is partly heuristic
-- the cause-effect classifier improves reasoning, but it does not eliminate ambiguity in sparse headlines
-- pricing and dedicated low-latency tiers above are still draft commercial positioning, not a live billing system
+- sparse headlines can remain ambiguous
+- pricing and latency tiers above are current commercial positioning and may evolve
+- this repository does not contain model weights. The PyPI package provides client tooling only. Production inference requires the hosted API.
 
-## Internal Repository Components
-
-- `aion.py`
-- `sector_propagation_engine.py`
-- `stakeholder_impact_mapper.py`
-- `briefing_generator.py`
-- `causal_discovery_miner.py`
-- `rule_approval_cli.py`
-- `multi_task_model.py`
-- `models/aion_sentiment_unified_v4_1/`
-- `models/cause_effect_rule_classifier_v3/`
-- `aion_taxonomy/`
-
-## AION Positioning
-
-AION Analytics builds developer infrastructure for Indian financial AI and deeptech.
-
-This project is part of that goal:
-
-- free layers reduce infrastructure pain
-- structured model outputs reduce repeated trial-and-error
-- developers can build their own reasoning, execution, and SaaS layers on top
+Compatibility note: the Python import path remains `aion_news_to_signal`, and
+some legacy slugs remain visible as redirects or repository identifiers. They
+are not the public product identity.

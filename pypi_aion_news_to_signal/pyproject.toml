@@ -3,9 +3,9 @@ requires = ["setuptools>=69", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "aion-news-to-signal"
-version = "1.0.2"
-description = "Python client for AION India Event Intelligence (formerly AION News-to-Signal) for Indian markets"
+name = "aion-indian-market-intelligence"
+version = "1.0.4"
+description = "Macro-event and sector impact intelligence for Indian financial markets. Structured analysis of how policy, economic, weather, and geopolitical events affect Indian market sectors."
 readme = "README.md"
 requires-python = ">=3.10"
 license = { text = "AGPL-3.0-or-later" }
@@ -13,16 +13,23 @@ authors = [
   { name = "AION Analytics" }
 ]
 dependencies = [
-  "requests>=2.31"
+  "requests>=2.31",
+  "mcp>=1.27"
 ]
 keywords = [
   "india",
   "nse",
-  "stock-market-news-analysis",
+  "indian-market-intelligence",
+  "macro-event-analysis",
+  "sector-impact-analysis",
+  "policy-impact-analysis",
+  "event-driven-market-intelligence",
+  "event-driven-finance",
+  "economic-propagation-analysis",
+  "sector-effect-modeling",
+  "financial-event-analysis",
   "market-intelligence",
-  "financial-news",
-  "event-intelligence",
-  "sector-analysis",
+  "mcp-server",
 ]
 classifiers = [
   "Development Status :: 3 - Alpha",
@@ -40,9 +47,13 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/AION-Analytics/aion-news-to-signal"
-Documentation = "https://huggingface.co/spaces/AION-Analytics/aion-news-to-signal"
-Issues = "https://github.com/AION-Analytics/aion-news-to-signal/issues"
+Homepage = "https://github.com/AION-Analytics/aion-indian-market-intelligence"
+Documentation = "https://dashboard.aiondashboard.site/models/indian-market-intelligence"
+Issues = "https://github.com/AION-Analytics/aion-indian-market-intelligence/issues"
+
+[project.scripts]
+aion-indian-market-intelligence-mcp = "aion_indian_market_intelligence.mcp_server:main"
+aion-news-to-signal-mcp = "aion_indian_market_intelligence.mcp_server:main"
 
 [tool.setuptools]
 package-dir = { "" = "src" }

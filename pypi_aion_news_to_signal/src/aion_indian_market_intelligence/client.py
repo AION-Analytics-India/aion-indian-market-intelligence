@@ -76,7 +76,7 @@ def analyze(
     base_url: str = DEFAULT_BASE_URL,
     timeout: float = 30.0,
 ) -> dict[str, Any]:
-    """Analyze a headline using the managed AION India Event Intelligence API."""
+    """Analyze a headline using AION Indian Market Intelligence for Macro Event & Sector Impact Analysis."""
     return AIONClient(api_key=api_key, base_url=base_url, timeout=timeout).analyze(
         headline=headline,
         published_at=published_at,

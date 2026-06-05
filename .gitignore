@@ -194,3 +194,22 @@ ENTERPRISE_*.md
 
 # Qwen internal files
 .qwen/
+
+# Databases (critical gap - added 2026-06-04)
+*.db
+*.sqlite
+*.sqlite3
+
+# Parquet datasets (critical gap - added 2026-06-04)
+*.parquet
+
+# Confidential docs (attorney work product)
+PATENT_INTELLIGENCE_LEDGER.md
+INVENTION_FAMILY_SEPARATION.md
+INVENTION_FAMILY_SEPARATION_v2.md
+
+# Production backend (never public)
+src/api/
+
+# Codex/AI agent task files (internal only)
+CODEX_TASK_*.md

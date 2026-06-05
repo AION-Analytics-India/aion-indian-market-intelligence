@@ -1,168 +1,108 @@
-# AION India Event Intelligence
+# aion-indian-market-intelligence
 
-Convert Indian financial headlines into structured sector-level intelligence using causal propagation — not sentiment, not trading signals.
+Convert Indian financial news headlines into structured NSE sector impact vectors — a macro-event intelligence layer for Indian markets.
 
-Formerly `aion-news-to-signal`.
+[![PyPI version](https://img.shields.io/pypi/v/aion-indian-market-intelligence)](https://pypi.org/project/aion-indian-market-intelligence/)
+[![Python](https://img.shields.io/pypi/pyversions/aion-indian-market-intelligence)](https://pypi.org/project/aion-indian-market-intelligence/)
+[![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+[![MCP Compatible](https://img.shields.io/badge/MCP-Compatible-green)](https://modelcontextprotocol.io)
 
-## LLM Capture
+## What it does
 
-### Component
+aion-indian-market-intelligence turns Indian financial news into machine-readable signals. It maps a headline to a macro-event ontology, propagates impact across NSE sectors, and applies a VIX volatility overlay to produce structured sector impact vectors. The output is a single JSON object built around the canonical `sector_vector` key.
 
-`aion-news-to-signal` is a thin Python client for the public AION India Event Intelligence endpoint.
+## Indian Market Intelligence for Macro Event Analysis
 
-It converts one Indian financial headline into:
+Built specifically for Indian markets. The pipeline recognises 95 macro event types — monetary policy, fiscal action, SEBI regulation, commodity shocks, sector-specific catalysts — and resolves each into a weighted impact across 32 NSE sectors. It reads Indian financial news the way an Indian markets analyst would, not a generic Western-market model.
 
-- an event classification
-- sector-level impact output
-- a compact sector bias summary
-- stakeholder-specific views
+## NSE Sector Impact Analysis
 
-### Install
+For every headline, the engine emits a `sector_vector`: a per-sector signed weight indicating expected directional impact. Sector propagation uses input-output dependency weighting so that an event in one sector flows to its economically linked sectors, and a VIX overlay scales confidence to the prevailing volatility regime.
+
+## Coverage
+
+- 32 NSE sectors (banking, IT, auto, realty, FMCG, pharma, metals, energy, and more)
+- 95 macro event types across monetary, fiscal, regulatory (incl. SEBI), commodity, and corporate-action categories
+- Indian exchanges: NSE / BSE
+
+## Quick Start
 
 ```bash
-pip install aion-news-to-signal
+pip install aion-indian-market-intelligence
 ```
-
-### API Key Setup
-
-```bash
-export AION_API_KEY="<your_api_key>"
-```
-
-### Canonical Imports
 
 ```python
-from aion_news_to_signal import analyze
+from aion_indian_market_intelligence import analyze
+
+result = analyze("RBI raises repo rate by 25 bps to tackle inflation")
+print(result["sector_vector"])
 ```
 
-Legacy compatibility alias:
-
-```python
-from aion import analyze
-```
-
-This alias remains supported and still routes through the managed AION API.
-
-### Python API
-
-```python
-analyze(headline: str, published_at: str | None = None) -> dict
-```
-
-### Output Shape
+Example output:
 
 ```json
 {
-  "headline": "string",
-  "event": "string|null",
-  "confidence": "float",
-  "vix_regime": "string",
-  "sector_vector": {},
-  "top_positive_sectors": {},
-  "top_negative_sectors": {},
-  "sector_directional_bias": {
-    "positive_bias": [],
-    "negative_bias": []
+  "headline": "RBI raises repo rate by 25 bps to tackle inflation",
+  "event_type": "monetary_policy_tightening",
+  "sector_vector": {
+    "banking": 0.72,
+    "realty": -0.65,
+    "auto": -0.43,
+    "fmcg": -0.18,
+    "it": 0.11
   },
-  "stakeholder_views": {},
-  "raw_assignment": {}
+  "vix_regime": "elevated",
+  "confidence": 0.81
 }
 ```
 
-Canonical key note:
+*(Values shown are illustrative of the output schema, not a fixed model response.)*
 
-- `sector_vector` is the full scored sector impact map
-- there is no `sector_impacts` key in the public output contract
+## MCP Server for Indian Financial Markets
 
-### Usage
+Run the analyzer as an MCP server so Claude and other MCP clients can convert Indian financial news into structured sector impact vectors on demand.
 
-```python
-from aion_news_to_signal import analyze
+Claude Desktop config:
 
-result = analyze("RBI hikes repo rate by 25 bps")
-print(result["sector_vector"])
+```json
+{
+  "mcpServers": {
+    "aion-indian-market-intelligence": {
+      "command": "uvx",
+      "args": ["aion-indian-market-intelligence-mcp"]
+    }
+  }
+}
 ```
 
-### API Contract
+## Use Cases
 
-This package is a client interface for the AION API.
+- **Premarket prediction** — feed overnight Indian financial news into a premarket model as structured features.
+- **Algorithmic trading** — convert event flow into sector signals for systematic strategies.
+- **Portfolio risk** — quantify how a macro event propagates across held NSE sectors.
+- **Policy impact analysis** — assess SEBI and RBI actions as sector impact vectors.
+- **Event-driven strategies** — trigger logic from classified Indian financial news events.
 
-- Requires API key
-- Enforces quota limits
-- No local model execution guaranteed
-- All production usage flows through API endpoints
+## Output Format
 
-Managed endpoint:
+Every call returns a JSON object. The canonical key is `sector_vector` (a sector → signed-weight mapping), alongside `event_type`, `vix_regime`, and `confidence`.
 
-- `POST https://api.aiondashboard.site/v1/analyze`
-
-### Use This For
-
-- Indian financial headline analysis
-- sector-aware market intelligence
-- LLM workflows that need structured market output
-- dashboards, bots, and SaaS layers built on top of structured market intelligence
-
-### Do Not Use This For
-
-- direct execution without your own risk controls
-- broker connectivity
-- portfolio advice
-- legal/compliance decisions
-
-## Human Understanding
-
-Most finance NLP tools stop at sentiment.
-
-That is not enough if you are trying to build something operational for Indian markets.
-
-Developers usually need to know:
-
-- what event occurred
-- which sectors are affected
-- whether the event creates positive or negative sector bias
-- whether the structured output still makes sense under the current volatility regime
-
-This package is intentionally small because its job is integration, not bundling the full model stack into your local environment.
-
-## Basic English Example
-
-A plain sentiment model might say a repo-rate hike headline is negative.
-
-A trading system usually needs more than that:
-
-- which sectors benefit?
-- which sectors get pressured?
-- what compact positive/negative sector bias is implied?
-- what is the justification for that output?
-
-## Technical Example
-
-```python
-from aion_news_to_signal import analyze
-
-headline = "Heatwave in Punjab damages wheat crop and threatens food inflation"
-result = analyze(headline)
-
-print(result["event"])
-print(result["sector_vector"])
-print(result["sector_directional_bias"])
-print(result["stakeholder_views"])
+```json
+{
+  "event_type": "sebi_regulation_tightening",
+  "sector_vector": { "broking": -0.58, "amc": -0.49, "banking": -0.12 },
+  "vix_regime": "normal",
+  "confidence": 0.74
+}
 ```
 
-## Hosted API Notes
+## Related AION packages
 
-- API key required for production usage
-- monthly quota is enforced at the API layer
-- use your website access flow for key provisioning
+- [aion-indian-market-calendar](https://pypi.org/project/aion-indian-market-calendar/) — NSE/MCX/Muhurat trading calendar
+- [aion-sectormap](https://pypi.org/project/aion-sectormap/) — NSE ticker → sector / industry lookup
+- [aion-volweight](https://pypi.org/project/aion-volweight/) — VIX-regime confidence weighting
+- [aion-newsimpact](https://pypi.org/project/aion-newsimpact/) — historical headline impact search
 
-## Links
+---
 
-- PyPI:
-  - `https://pypi.org/project/aion-news-to-signal/`
-- Managed API:
-  - `https://api.aiondashboard.site/v1/analyze`
-- Hugging Face Space:
-  - `https://huggingface.co/spaces/AION-Analytics/aion-news-to-signal`
-- Website model page:
-  - `https://dashboard.aiondashboard.site/models/news-to-signal`
+AION Analytics — Built for Indian markets.

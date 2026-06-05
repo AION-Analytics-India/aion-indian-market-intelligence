@@ -6,7 +6,7 @@ import os
 # Load sector map from aion-sectormap package
 _SECTOR_MAP_PATH = os.path.join(
     os.path.dirname(__file__),
-    '../../../aion-sectormap/src/aion_sectormap/data/sector_map.json'
+    '../../../packages/aion-sectormap/src/aion_sectormap/data/sector_map.json'
 )
 _SECTOR_MAP = {}
 if os.path.exists(_SECTOR_MAP_PATH):
@@ -48,11 +48,23 @@ def classify_instrument(tradingsymbol, segment, exchange, underlying=None):
             result["sector"] = "Unknown Equity"
         return result
 
-    # 2. Index derivative
-    if segment.startswith('NFO-') or segment.startswith('BFO-'):
-        result["asset_class"] = "derivative"
+    # 2. Index spot or derivative
+    if segment == 'INDEX_SPOT' or segment.startswith('NFO-') or segment.startswith('BFO-'):
+        result["asset_class"] = "derivative" if '-' in segment else "equity"
         result["asset_subclass"] = "index_option" if 'OPT' in segment else "index_future"
-        result["sector"] = "Financial Services -> Index Derivatives"
+        if segment == 'INDEX_SPOT':
+            result["asset_subclass"] = "index_spot"
+        
+        # Map indices to their dynamic sensitivity keys
+        sym = tradingsymbol.upper()
+        if 'BANK' in sym:
+            result["sector"] = "NIFTYBANK"
+        elif 'FIN' in sym:
+            result["sector"] = "NIFTYFIN"
+        elif 'NIFTY' in sym:
+            result["sector"] = "NIFTY50"
+        else:
+            result["sector"] = "Financial Services -> Index"
         return result
 
     # 3. Commodity (MCX or NCO segments)
@@ -104,8 +116,8 @@ def get_meta_factors(instrument_info):
     subclass = instrument_info.get('asset_subclass')
     sector = instrument_info.get('sector')
 
-    # Special handling for equity spot: use dynamic sensitivities if sector exists in rolling correlations
-    if asset_class == 'equity' and subclass == 'spot' and sector and sector != 'Unknown Equity':
+    # Special handling for equity spot or index: use dynamic sensitivities if sector exists in rolling correlations
+    if asset_class == 'equity' and subclass in ['spot', 'index_spot'] and sector and sector != 'Unknown Equity':
         # Map sector name to the NIFTY sector index key used in sector_sensitivities.json
         # We need a mapping from the sector string (e.g., "Oil, Gas & Consumable Fuels") to the NIFTY index name (e.g., "NIFTYENERGY")
         sector_to_index = {
@@ -129,7 +141,7 @@ def get_meta_factors(instrument_info):
             "Banks": "NIFTYBANK",
             "Energy": "NIFTYENERGY",
         }
-        index_key = sector_to_index.get(sector)
+        index_key = sector if sector in _SECTOR_SENSITIVITIES else sector_to_index.get(sector)
         if index_key and index_key in _SECTOR_SENSITIVITIES:
             # Return the dynamic sensitivities (already includes interest_rate, crude_oil, rupee, risk_sentiment)
             # Note: liquidity is missing; we'll set to 0 for now
