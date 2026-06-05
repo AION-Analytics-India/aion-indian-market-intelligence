@@ -49,7 +49,7 @@ class TaxonomyPipeline:
         sector_mapper: Optional sector mapper for ticker-to-sector lookup.
 
     Example:
-        >>> pipeline = TaxonomyPipeline(taxonomy_path="taxonomy_india_v2.yaml")
+        >>> pipeline = TaxonomyPipeline(taxonomy_path="taxonomy_india_v2_calibrated.yaml")
         >>> result = pipeline.process("RBI hikes repo rate by 25 bps")
         >>> print(result['macro_signal'])
     """

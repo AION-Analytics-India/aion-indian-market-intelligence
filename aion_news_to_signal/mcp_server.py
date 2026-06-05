@@ -4,32 +4,38 @@ from __future__ import annotations
 import argparse
 from typing import Any
 
-from aion import analyze
+from aion_indian_market_intelligence import analyze
 from mcp.server.fastmcp import FastMCP
 
 
 server = FastMCP(
-    name="AION News-to-Signal MCP Server",
+    name="AION Indian Market Intelligence for Macro Event & Sector Impact Analysis",
     instructions=(
-        "Use this server to analyze Indian financial headlines and return structured "
-        "sector-level trading signals, including which sectors to long or short."
+        "Use this integration to call AION Indian Market Intelligence for Macro Event & Sector Impact Analysis. "
+        "Macro-event and sector impact intelligence for Indian financial markets. "
+        "Structured analysis of how policy, economic, weather, and geopolitical events affect Indian market sectors. "
+        "This is an MCP-compatible Indian market intelligence engine for macro event analysis, sector impact analysis, "
+        "policy impact analysis, event-driven market intelligence, economic propagation analysis, and sector effect modeling. "
+        "An API key is required through the AION_API_KEY environment variable. "
+        "This system is quota-controlled and does not generate executable orders."
     ),
 )
 
 
 @server.tool(
-    name="analyze_headline",
+    name="analyze_news",
     description=(
-        "Analyze one Indian financial headline and return sector-level trading signals, "
-        "top positive and negative sectors, stakeholder views, and the resolved event."
+        "Analyze one Indian financial headline via the managed AION API and return sector impact analysis through sector_vector. "
+        "Requires API key configuration and returns structured market intelligence, not executable recommendations."
     ),
 )
-def analyze_headline(headline: str, published_at: str | None = None) -> dict[str, Any]:
-    return analyze(headline, published_at=published_at)
+def analyze_news(headline: str, published_at: str | None = None) -> dict[str, Any]:
+    result = analyze(headline, published_at=published_at)
+    return {"sector_vector": result.get("sector_vector", {})}
 
 
 def main() -> None:
-    parser = argparse.ArgumentParser(description="Run the AION News-to-Signal MCP server.")
+    parser = argparse.ArgumentParser(description="Run AION Indian Market Intelligence for Macro Event & Sector Impact Analysis.")
     parser.add_argument(
         "--transport",
         choices=["stdio", "sse", "streamable-http"],

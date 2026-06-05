@@ -1,96 +1,62 @@
-# AION India Event Intelligence — Client Library
+# AION India Event Intelligence
 
-Structured event intelligence for Indian financial markets.
+Convert Indian financial headlines into structured sector-level intelligence using causal propagation — not sentiment, not trading signals.
 
-This package provides:
+Formerly `aion-news-to-signal`.
 
-- A Python client for the AION India Event Intelligence API
-- An MCP server entrypoint for ChatGPT, Claude, Cursor, and other MCP-compatible tools
-- Local data validation and output formatting utilities
+API-first Python and MCP client for Indian financial headline intelligence.
 
-This package does **NOT** contain model weights. Inference requires an API key from `https://dashboard.aiondashboard.site/access/register`.
+<!-- mcp-name: io.github.AION-Analytics/aion-news-to-signal -->
 
-## Quick Start
+## API Key Setup
+
+```bash
+export AION_API_KEY="<your_api_key>"
+```
 
 ```python
-from aion import analyze
+from aion_news_to_signal import analyze
 
-# Requires AION_API_KEY environment variable or explicit key
-result = analyze("RBI hikes repo rate by 25 bps", api_key="YOUR_KEY")
+result = analyze("RBI hikes repo rate by 25 bps")
 print(result["sector_vector"])
 ```
 
-## MCP Server
+Legacy compatibility alias:
+
+```python
+from aion import analyze
+```
+
+This alias remains supported and still routes through the managed AION API.
+
+## API Contract
+
+This package is a client interface for the AION API.
+
+- Requires API key
+- Enforces quota limits
+- No local model execution guaranteed
+- All production usage flows through API endpoints
+
+Managed endpoint:
+
+- `POST https://api.aiondashboard.site/v1/analyze`
+
+API access page:
+
+- `https://dashboard.aiondashboard.site/models/news-to-signal`
+
+## MCP server
+
+This package also includes the AION India Event Intelligence MCP server entrypoint.
+
+The MCP layer:
+
+- requires `AION_API_KEY`
+- is quota-controlled
+- returns structured sector intelligence, not trading signals
+- does not execute trades or generate executable orders
 
 ```bash
 python -m aion_news_to_signal.mcp_server
 ```
-
-The MCP server requires an API key for inference. Set `AION_API_KEY` in your environment.
-
-## API Contract
-
-Production inference flows through the hosted AION API:
-
-- `POST https://api.aiondashboard.site/v1/analyze`
-- header:
-  - `X-API-Key: <key>`
-
-```python
-import requests
-
-headers = {"X-API-Key": "YOUR_API_KEY"}
-resp = requests.post(
-    "https://api.aiondashboard.site/v1/analyze",
-    headers=headers,
-    json={"headline": "RBI hikes repo rate by 25 bps"},
-    timeout=30,
-)
-resp.raise_for_status()
-print(resp.json()["sector_vector"])
-```
-
-## Output Contract
-
-```json
-{
-  "headline": "string",
-  "event": "string|null",
-  "confidence": "float",
-  "vix_regime": "string",
-  "sector_vector": {},
-  "top_positive_sectors": {},
-  "top_negative_sectors": {},
-  "sector_directional_bias": {
-    "positive_bias": [],
-    "negative_bias": []
-  },
-  "stakeholder_views": {},
-  "raw_assignment": {
-    "resolved_event_id": "string|null",
-    "cause_effect_rule_id": "string|null",
-    "weather_triggered": "bool"
-  }
-}
-```
-
-## Important Note
-
-⚠️ This package is a client library, not a self-contained inference engine. It requires a valid API key and internet connectivity to call the AION hosted API. For local/offline inference, contact AION Analytics about enterprise deployment options.
-
-## Links
-
-- API gateway:
-  - `https://dashboard.aiondashboard.site/systems/api-gateway`
-- Website model page:
-  - `https://dashboard.aiondashboard.site/models/news-to-signal`
-- API key registration:
-  - `https://dashboard.aiondashboard.site/access/register`
-- GitHub:
-  - `https://github.com/AION-Analytics/aion-news-to-signal`
-- Hugging Face model:
-  - `https://huggingface.co/AION-Analytics/aion-news-to-signal`
-- Hugging Face demo:
-  - `https://huggingface.co/spaces/AION-Analytics/aion-news-to-signal`
-- PyPI package:
-  - `https://pypi.org/project/aion-news-to-signal/`

@@ -54,7 +54,7 @@ def load_taxonomy(yaml_path: str) -> Dict[str, Any]:
         yaml.YAMLError: If the YAML is malformed.
 
     Example:
-        >>> taxonomy = load_taxonomy("taxonomy_india_v2.yaml")
+        >>> taxonomy = load_taxonomy("taxonomy_india_v2_calibrated.yaml")
         >>> print(taxonomy['metadata']['version'])
     """
     yaml_path = Path(yaml_path)

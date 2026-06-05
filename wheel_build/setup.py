@@ -4,7 +4,7 @@ from setuptools import setup
 setup(
     name="aion-news-to-signal",
     version="1.0.2",
-    description="AION India Event Intelligence client library and MCP server for Indian financial news analysis. API key required for inference.",
+    description="Python and MCP client for AION India Event Intelligence (formerly AION News-to-Signal). API key required.",
     long_description=open("README.md", "r", encoding="utf-8").read(),
     long_description_content_type="text/markdown",
     packages=["aion_news_to_signal"],

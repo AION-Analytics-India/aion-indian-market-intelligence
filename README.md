@@ -1,17 +1,25 @@
-[![Version](https://img.shields.io/badge/version-1.0.2-blue)](https://pypi.org/project/aion-news-to-signal/1.0.2/)
+[![Version](https://img.shields.io/badge/version-1.0.3-blue)](https://pypi.org/project/aion-indian-market-intelligence/)
 
-# AION India Event Intelligence
+# AION Indian Market Intelligence for Macro Event & Sector Impact Analysis
 
-Structured event intelligence for Indian financial markets.
+Indian Market Intelligence for Macro Event & Sector Impact Analysis.
 
-Formerly `aion-news-to-signal`.
+Indian Market Intelligence for Macro Event & Sector Impact Analysis is the
+single public identity for this product. It is an API for Indian SaaS
+developers, professional coders, LLM tools, dashboards, and analyst workflows
+that need macro event intelligence and sector impact analysis from Indian
+financial headlines.
 
-AION India Event Intelligence is a developer API that converts raw Indian financial headlines into structured, auditable event intelligence. It answers: what happened, which sectors are affected, how stakeholders are impacted, and which macro factors are in play. It does not tell you what to trade. It provides the evidence layer you use to make your own decisions.
+AION Indian Market Intelligence for Macro Event & Sector Impact Analysis
+converts raw Indian financial headlines into market impact ontology output. It
+answers: what happened, which sectors are exposed, which stakeholders are
+affected, and which macro effects are in play. It does not tell you what to
+trade.
 
 ## Install
 
 ```bash
-pip install aion-news-to-signal
+pip install aion-indian-market-intelligence
 ```
 
 ## API Key Setup
@@ -84,56 +92,121 @@ Observed top-level output keys:
 
 Canonical key note:
 
-- `sector_vector` is the full scored sector impact map
+- `sector_vector` is the canonical output key for sector impact analysis
 - there is no `sector_impacts` key in the public output contract
+
+## Output-Centric Example
+
+Input:
+
+```text
+RBI unexpectedly raises repo rate by 50 bps
+```
+
+Example view:
+
+```json
+{
+  "event": "repo_rate_hike",
+  "sector_vector": {
+    "Information Technology": 0.18,
+    "Realty": -0.52,
+    "Financial Services": -0.31,
+    "Automobile and Auto Components": -0.26
+  },
+  "top_positive_sectors": {
+    "Information Technology": 0.18
+  },
+  "top_negative_sectors": {
+    "Realty": -0.52,
+    "Financial Services": -0.31,
+    "Automobile and Auto Components": -0.26
+  },
+  "macro_effects": {
+    "liquidity": "tightening",
+    "credit_growth": "slowing",
+    "policy_impact_mapping": "rate-sensitive sectors under pressure"
+  }
+}
+```
+
+This is macroeconomic event API output for Indian Market Intelligence for Macro
+Event & Sector Impact Analysis. It is not broker execution guidance.
 
 ## Before / After
 
 Headline:
 > Unseasonal rainfall and hailstorm hit apple orchards in Himachal Pradesh in April
 
-Typical sentiment output:
+Typical polarity-only output:
 - negative
 
-AION India Event Intelligence output:
+AION Indian Market Intelligence for Macro Event & Sector Impact Analysis output:
 - event / rule: `rain_apple_damage`
 - likely losers: `Agriculture & Horticulture`, `Transportation`, `Consumer Services`
 - potential second-order beneficiaries: storage-linked or substitute supply chains
 - stakeholder view: producer losses, policymaker inflation watch, investor attention on downstream second-order effects
 
-Market implication: agriculture-linked exposure under pressure, logistics bottlenecks possible, substitute supply chains may benefit.
+Market implication: agriculture-linked exposure under pressure, logistics
+bottlenecks possible, substitute supply chains may benefit.
 
-## What AION India Event Intelligence Does
+## What AION Indian Market Intelligence for Macro Event & Sector Impact Analysis Does
 
-- resolves Indian financial headlines into structured event categories
-- produces sector-level impact output instead of raw polarity
-- decomposes event context into stakeholder and macro-factor views
-- returns structured evidence for dashboards, agents, and internal tooling
-- supports auditable downstream reasoning without collapsing into execution language
+- provides Indian macro event intelligence from financial headlines
+- provides sector impact analysis through the canonical `sector_vector`
+- supports financial causality mapping and event-to-sector reasoning
+- returns sector exposure intelligence for dashboards, agents, and internal tooling
+- supports policy impact mapping and event-driven financial inference without
+  collapsing into execution language
 
-## Why Not FinBERT?
+## Why Not Polarity-Only NLP?
 
-Most open-source financial sentiment tools, including FinBERT variants, stop at polarity scoring.
+Most open-source financial NLP tools stop at polarity scoring.
 
-| Capability | AION India Event Intelligence | FinBERT |
+| Capability | AION Indian Market Intelligence for Macro Event & Sector Impact Analysis | Polarity-only NLP |
 |---|---|---|
 | Indian market event logic | Yes | No |
-| Sector-level output | Yes, 32 sectors | No |
-| Trade direction signals | Yes | No |
-| Weather/crop propagation | Yes | No |
+| Sector impact analysis | Yes | No |
+| Sector exposure intelligence | Yes | No |
+| Policy impact mapping | Yes | No |
 | Stakeholder decomposition | Yes | No |
-| VIX-adjusted output | Yes | No |
-| “Which sectors to long/short from news” workflow | Yes | No |
+| Macroeconomic event API workflow | Yes | No |
+| Financial event ontology | Yes | No |
 
-FinBERT tells you whether a headline feels positive or negative.
+Polarity-only NLP tells you whether a headline reads positive or negative.
 
-AION India Event Intelligence tells you:
+AION Indian Market Intelligence for Macro Event & Sector Impact Analysis tells you:
 
 - what happened
 - which sectors are affected and in what direction
 - who gains and who loses
 - whether there is a flip side
 - what the evidence layer suggests for further human or system review
+
+## Canonical Vocabulary
+
+Public docs, model cards, PyPI copy, MCP copy, and dashboard pages use
+`Indian Market Intelligence for Macro Event & Sector Impact Analysis` as the
+single identity phrase. Supporting vocabulary is maintained in
+`docs/CANONICAL_VOCABULARY.yml`.
+
+Primary phrases include:
+
+- macro event intelligence
+- sector impact analysis
+- sector propagation engine
+- financial causality mapping
+- market impact ontology
+- event-to-sector reasoning
+- macroeconomic event API
+- sector exposure intelligence
+- policy impact mapping
+- event-driven financial inference
+- financial event ontology
+- sectoral impact engine
+
+These phrases are intentional for human search, PyPI discovery, Hugging Face
+indexing, GitHub topics, MCP registry copy, and LLM retrieval embeddings.
 
 ## Pricing & Tiers (Draft — Current as of May 2026)
 
@@ -154,27 +227,32 @@ Enterprise: custom, GPU-dedicated. Contact via dashboard.
 - API gateway:
   - `https://dashboard.aiondashboard.site/systems/api-gateway`
 - Website model page:
-  - `https://dashboard.aiondashboard.site/models/news-to-signal`
+  - `https://dashboard.aiondashboard.site/models/indian-market-intelligence`
 - API key registration:
   - `https://dashboard.aiondashboard.site/access/register`
 - Managed API:
   - `https://api.aiondashboard.site/v1/analyze`
 - PyPI package:
-  - `https://pypi.org/project/aion-news-to-signal/`
+  - `https://pypi.org/project/aion-indian-market-intelligence/`
 - GitHub repository:
-  - `https://github.com/AION-Analytics/aion-news-to-signal`
+  - `https://github.com/AION-Analytics/aion-indian-market-intelligence`
 - Hugging Face model surface:
   - `https://huggingface.co/AION-Analytics/aion-news-to-signal`
 - Hugging Face demo Space:
   - `https://huggingface.co/spaces/AION-Analytics/aion-news-to-signal`
 - MCP server repo:
   - `https://github.com/AION-Analytics/aion-mcp-server`
+- MCP marketplace maintenance register:
+  - `docs/MCP_MARKETPLACE_MAINTENANCE.md`
 
 ## Current Limits
 
 - production usage is quota-controlled at the API layer
 - weather and crop coverage still depends on explicit cues in the headline
-- the primitive sector matrix is partly heuristic
-- the cause-effect classifier improves reasoning, but it does not eliminate ambiguity in sparse headlines
+- sparse headlines can remain ambiguous
 - pricing and latency tiers above are current commercial positioning and may evolve
 - this repository does not contain model weights. The PyPI package provides client tooling only. Production inference requires the hosted API.
+
+Compatibility note: the Python import path remains `aion_news_to_signal`, and
+some legacy slugs remain visible as redirects or repository identifiers. They
+are not the public product identity.

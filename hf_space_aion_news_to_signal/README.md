@@ -6,7 +6,7 @@ colorTo: indigo
 sdk: gradio
 app_file: app.py
 pinned: false
-short_description: 10-request demo. API key required for production.
+short_description: 3-request demo. API key required for production.
 ---
 
 # AION India Event Intelligence — Rate-Limited Demo
@@ -15,7 +15,7 @@ Structured event intelligence for Indian financial markets.
 
 This Space is a demo surface for AION India Event Intelligence.
 
-- Demo limit: 10 requests per session
+- Demo limit: 3 requests per visitor per day
 - Production access requires an API key
 - Registration: `https://dashboard.aiondashboard.site/access/register`
 

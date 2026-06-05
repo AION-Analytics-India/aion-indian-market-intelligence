@@ -1,0 +1,7 @@
+name: AION Indian Market Intelligence for Macro Event & Sector Impact Analysis
+version: 1.0.4
+schema: v1
+mcpServers:
+  - name: AION Indian Market Intelligence for Macro Event & Sector Impact Analysis
+    type: stdio
+    command: aion-indian-market-intelligence-mcp
