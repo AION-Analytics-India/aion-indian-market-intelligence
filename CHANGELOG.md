@@ -8,6 +8,7 @@
 - Normalized package README H1 headings to package names for aion-sectormap, aion-volweight, aion-newsimpact, and aion-taxonomy.
 - Updated aion-sectormap package fallback data path from the old root-level location to packages/aion-sectormap.
 - Bumped aion-indian-market-intelligence PyPI package metadata to 1.0.5 and wired the PyPI long description to PYPI_DESCRIPTION.md content.
+- Aligned aion-taxonomy source examples and README with taxonomy_india_v2_calibrated.yaml as the canonical taxonomy file.
 
 ## [Security] — 2026-06-04
 ### Fixed

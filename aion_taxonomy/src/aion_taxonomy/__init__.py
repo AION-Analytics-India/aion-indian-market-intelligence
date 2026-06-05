@@ -30,7 +30,7 @@ Main Classes:
 
 Example:
     >>> from aion_taxonomy import TaxonomyPipeline
-    >>> pipeline = TaxonomyPipeline(taxonomy_path="taxonomy_india_v2.yaml")
+    >>> pipeline = TaxonomyPipeline(taxonomy_path="taxonomy_india_v2_calibrated.yaml")
     >>> result = pipeline.process("RBI hikes repo rate by 25 bps")
     >>> print(result['macro_signal'])
 """

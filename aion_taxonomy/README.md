@@ -4,7 +4,7 @@ Deterministic event classification and sector impact rules for Indian financial 
 
 ## Current Files
 
-- `taxonomy_india_v2_calibrated.yaml` — legacy calibrated taxonomy surface used by older classifier paths
+- `taxonomy_india_v2_calibrated.yaml` — canonical calibrated taxonomy surface used by classifier paths
 - `primitives.yaml` — 11 atomic causal primitives (`supply_shock`, `demand_shock`, etc.)
 - `cause_effect_rules_v3.yaml` — 21 weather/crop cause-effect chains with historical evidence
 - `sector_matrix.yaml` — 32-sector sensitivity matrix to primitive shocks
