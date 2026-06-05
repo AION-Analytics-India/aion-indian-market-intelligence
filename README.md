@@ -1,282 +1,258 @@
-# AION Analytics — News-to-Signal Engine for Indian Markets
+[![Version](https://img.shields.io/badge/version-1.0.3-blue)](https://pypi.org/project/aion-indian-market-intelligence/)
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue)
+# AION Indian Market Intelligence for Macro Event & Sector Impact Analysis
 
-REST API + Python SDK that converts Indian financial news into structured sector-level trading signals for NSE-focused workflows.
+Indian Market Intelligence for Macro Event & Sector Impact Analysis.
 
-First news-to-signal engine for Indian markets.
+Indian Market Intelligence for Macro Event & Sector Impact Analysis is the
+single public identity for this product. It is an API for Indian SaaS
+developers, professional coders, LLM tools, dashboards, and analyst workflows
+that need macro event intelligence and sector impact analysis from Indian
+financial headlines.
 
-Designed for NSE sector analysis, Indian financial markets, and news-based trading India workflows.
+AION Indian Market Intelligence for Macro Event & Sector Impact Analysis
+converts raw Indian financial headlines into market impact ontology output. It
+answers: what happened, which sectors are exposed, which stakeholders are
+affected, and which macro effects are in play. It does not tell you what to
+trade.
 
-Use AION Analytics News-to-Signal for news-based algo trading in India. Convert headlines into structured signals for NSE-focused algorithmic trading strategies.
+## Install
 
-Use it as a stock market news analysis API for India that produces sector-level trading signals instead of sentiment scores.
+```bash
+pip install aion-indian-market-intelligence
+```
 
-Use AION Analytics News-to-Signal as a stock picker from news India: convert headlines into sector signals, then map to NSE stocks.
+## API Key Setup
 
-Generate news based stock signals NSE traders can use, then convert them into sector rotation, stock picker, and trading bot workflows.
+```bash
+export AION_API_KEY="<your_api_key>"
+```
 
-AION Analytics is an AI trading signals India API for developers building broker-linked bots, dashboards, and LLM workflows.
+## Canonical Imports
 
-AION Analytics News-to-Signal works with ChatGPT, Claude, Gemini, VS Code, Cursor, Windsurf, Antigravity, Cline, and other MCP-compatible IDEs and agent workflows.
+```python
+from aion_news_to_signal import analyze
+```
 
-AION Analytics News-to-Signal outputs sector-level signals. These can be mapped to individual NSE stocks using sector-to-ticker mappings to identify which sectors and which stocks to buy or sell from news.
-
-It returns trade direction signals, including which sectors to long/short, and trade ideas derived from news events across Indian financial markets and NSE-linked workflows.
-
-## Local Python Snippet
+Legacy compatibility alias:
 
 ```python
 from aion import analyze
-
-headline = "Heatwave in Punjab during March damages wheat crop and threatens food inflation"
-result = analyze(headline)
-
-print(result["event"])
-print(result["trade_direction_signals"])
-print(result["top_negative_sectors"])
 ```
+
+This alias remains supported and routes through the managed AION API.
+
+## API Contract
+
+Production usage flows through the managed AION API:
+
+- `POST https://api.aiondashboard.site/v1/analyze`
+- header:
+  - `X-API-Key: <key>`
+
+```python
+import requests
+
+headers = {"X-API-Key": "YOUR_API_KEY"}
+resp = requests.post(
+    "https://api.aiondashboard.site/v1/analyze",
+    headers=headers,
+    json={"headline": "RBI hikes repo rate by 25 bps"},
+    timeout=30,
+)
+resp.raise_for_status()
+print(resp.json()["sector_vector"])
+```
+
+## Output Contract
+
+Observed top-level output keys:
+
+```json
+{
+  "headline": "string",
+  "event": "string|null",
+  "confidence": "float",
+  "vix_regime": "string",
+  "sector_vector": {},
+  "top_positive_sectors": {},
+  "top_negative_sectors": {},
+  "sector_directional_bias": {
+    "positive_bias": [],
+    "negative_bias": []
+  },
+  "stakeholder_views": {},
+  "raw_assignment": {
+    "resolved_event_id": "string|null",
+    "cause_effect_rule_id": "string|null",
+    "weather_triggered": "bool"
+  }
+}
+```
+
+Canonical key note:
+
+- `sector_vector` is the canonical output key for sector impact analysis
+- there is no `sector_impacts` key in the public output contract
+
+## Output-Centric Example
+
+Input:
+
+```text
+RBI unexpectedly raises repo rate by 50 bps
+```
+
+Example view:
+
+```json
+{
+  "event": "repo_rate_hike",
+  "sector_vector": {
+    "Information Technology": 0.18,
+    "Realty": -0.52,
+    "Financial Services": -0.31,
+    "Automobile and Auto Components": -0.26
+  },
+  "top_positive_sectors": {
+    "Information Technology": 0.18
+  },
+  "top_negative_sectors": {
+    "Realty": -0.52,
+    "Financial Services": -0.31,
+    "Automobile and Auto Components": -0.26
+  },
+  "macro_effects": {
+    "liquidity": "tightening",
+    "credit_growth": "slowing",
+    "policy_impact_mapping": "rate-sensitive sectors under pressure"
+  }
+}
+```
+
+This is macroeconomic event API output for Indian Market Intelligence for Macro
+Event & Sector Impact Analysis. It is not broker execution guidance.
 
 ## Before / After
 
 Headline:
 > Unseasonal rainfall and hailstorm hit apple orchards in Himachal Pradesh in April
 
-Typical sentiment output:
+Typical polarity-only output:
 - negative
 
-AION Analytics News-to-Signal output:
+AION Indian Market Intelligence for Macro Event & Sector Impact Analysis output:
 - event / rule: `rain_apple_damage`
 - likely losers: `Agriculture & Horticulture`, `Transportation`, `Consumer Services`
-- flip-side opportunity: traders can benefit from scarcity and repricing, and storage or substitute supply chains may gain
-- stakeholder view: producer losses, trader repricing opportunity, investor view on second-order sector timing
+- potential second-order beneficiaries: storage-linked or substitute supply chains
+- stakeholder view: producer losses, policymaker inflation watch, investor attention on downstream second-order effects
 
-Trade implication:
-- short agriculture-linked exposure
-- watch logistics bottlenecks
-- look for substitute supply beneficiaries
+Market implication: agriculture-linked exposure under pressure, logistics
+bottlenecks possible, substitute supply chains may benefit.
 
-In one line: AION Analytics News-to-Signal converts a weather headline into sector moves + trade positioning.
+## What AION Indian Market Intelligence for Macro Event & Sector Impact Analysis Does
 
-## What AION Analytics News-to-Signal Does
+- provides Indian macro event intelligence from financial headlines
+- provides sector impact analysis through the canonical `sector_vector`
+- supports financial causality mapping and event-to-sector reasoning
+- returns sector exposure intelligence for dashboards, agents, and internal tooling
+- supports policy impact mapping and event-driven financial inference without
+  collapsing into execution language
 
-- event classification from Indian financial news
-- sector-level trading signals, including trade direction signals and which sectors to long/short
-- which sectors go up or down from a news event
-- VIX-adjusted sector impact
-- stakeholder-specific views for producers, traders, investors, government/fiscal, and international trade
-- weather/crop and supply-chain propagation where relevant
-- structured output for bots, dashboards, and LLM workflows
+## Why Not Polarity-Only NLP?
 
-## Use Cases
+Most open-source financial NLP tools stop at polarity scoring.
 
-- Zerodha bot:
-  Generate trade ideas from Indian news and feed them into Zerodha Kite Connect execution logic.
-- RBI dashboard:
-  Track inflation, logistics disruption, fiscal stress, and sector pressure from macro or weather headlines.
-- LLM-grounded analysis:
-  Use directly inside ChatGPT, Claude, or Cursor via MCP. No API integration required.
-- Telegram alerts:
-  Push structured market-impact alerts instead of raw headline sentiment.
-- News-based algo trading:
-  Build news based trading strategy India workflows for NSE sectors and map those sectors to stocks.
-
-Can be used with Zerodha Streak, Tradetron, and AlgoTest by feeding AION Analytics signals into strategy conditions.
-
-## Why Not FinBERT?
-
-Most open-source financial sentiment tools, including FinBERT variants, stop at polarity scoring.
-
-| Capability | AION Analytics News-to-Signal | FinBERT |
+| Capability | AION Indian Market Intelligence for Macro Event & Sector Impact Analysis | Polarity-only NLP |
 |---|---|---|
 | Indian market event logic | Yes | No |
-| Sector-level output | Yes, 32 sectors | No |
-| Trade direction signals | Yes | No |
-| Weather/crop propagation | Yes | No |
+| Sector impact analysis | Yes | No |
+| Sector exposure intelligence | Yes | No |
+| Policy impact mapping | Yes | No |
 | Stakeholder decomposition | Yes | No |
-| VIX-adjusted output | Yes | No |
-| “Which sectors to long/short from news” workflow | Yes | No |
+| Macroeconomic event API workflow | Yes | No |
+| Financial event ontology | Yes | No |
 
-FinBERT tells you whether a headline feels positive or negative.
+Polarity-only NLP tells you whether a headline reads positive or negative.
 
-AION Analytics News-to-Signal tells you:
+AION Indian Market Intelligence for Macro Event & Sector Impact Analysis tells you:
 
 - what happened
-- which sectors will go up or down
+- which sectors are affected and in what direction
 - who gains and who loses
 - whether there is a flip side
-- what trade view or hedge view follows
+- what the evidence layer suggests for further human or system review
 
-## Pricing & Tiers
+## Canonical Vocabulary
 
-Draft pricing for a future hosted product. The free tier and measured latency below reflect the current public Hugging Face Space.
+Public docs, model cards, PyPI copy, MCP copy, and dashboard pages use
+`Indian Market Intelligence for Macro Event & Sector Impact Analysis` as the
+single identity phrase. Supporting vocabulary is maintained in
+`docs/CANONICAL_VOCABULARY.yml`.
 
-| Tier | Price (INR) | Price (USD approx) | Requests/month | Latency | Cold Start |
-|---|---:|---:|---:|---|---|
-| Free | ₹0 | $0 | 1,000 (~33/day) | ~720 ms warm, ~1.7 s cold | Yes |
-| Builder | ₹299/mo | ~$3.5 | 15,000 (~500/day) | ~720 ms warm, occasional cold | Shared |
-| Pro | ₹999/mo | ~$12 | 75,000 (~2,500/day) | ~300–500 ms, priority | No (dedicated) |
-| Power | ₹2,999/mo | ~$36 | 250,000 (~8,300/day) | ~200–400 ms, burst | No |
-| Enterprise | Custom | Custom | Unlimited | <100 ms GPU, dedicated | No |
+Primary phrases include:
 
-*Pay-as-you-go: ₹0.10 per extra request or ₹100/5,000 extra after monthly limit.*
+- macro event intelligence
+- sector impact analysis
+- sector propagation engine
+- financial causality mapping
+- market impact ontology
+- event-to-sector reasoning
+- macroeconomic event API
+- sector exposure intelligence
+- policy impact mapping
+- event-driven financial inference
+- financial event ontology
+- sectoral impact engine
 
-## Sign Up
+These phrases are intentional for human search, PyPI discovery, Hugging Face
+indexing, GitHub topics, MCP registry copy, and LLM retrieval embeddings.
 
-- Free tier API signup:
-  `https://api.aiondashboard.site/signup/free`
-- Paid tier API signup:
-  `https://api.aiondashboard.site/signup/paid?plan=pro`
+## Pricing & Tiers (Draft — Current as of May 2026)
 
-## Hosted API Details
+All tiers require an API key. Sign up at
+`https://dashboard.aiondashboard.site/access/register`
 
-Public Space:
+| Tier | Requests/month | Latency |
+|---|---:|---|
+| Free | 1,000 | Shared |
+| Builder | 15,000 | Shared |
+| Pro | 75,000 | Priority |
+| Power | 250,000 | Dedicated |
 
-- `https://huggingface.co/spaces/AION-Analytics/aion-news-to-signal`
-- Model Repo: `https://huggingface.co/AION-Analytics/aion-news-to-signal`
-- App host: `https://aion-analytics-aion-news-to-signal.hf.space`
+Enterprise: custom, GPU-dedicated. Contact via dashboard.
 
-## Marketplace Links
+## Access And Links
 
-- MCP server repo:
-  `https://github.com/AION-Analytics/aion-mcp-server`
-- Official MCP Registry:
-  `https://registry.modelcontextprotocol.io/v0.1/servers/io.github.AION-Analytics%2Faion-news-to-signal/versions/1.0.1`
-- Official MCP Registry versions:
-  `https://registry.modelcontextprotocol.io/v0.1/servers/io.github.AION-Analytics%2Faion-news-to-signal/versions`
+- API gateway:
+  - `https://dashboard.aiondashboard.site/systems/api-gateway`
+- Website model page:
+  - `https://dashboard.aiondashboard.site/models/indian-market-intelligence`
+- API key registration:
+  - `https://dashboard.aiondashboard.site/access/register`
+- Managed API:
+  - `https://api.aiondashboard.site/v1/analyze`
 - PyPI package:
-  `https://pypi.org/project/aion-news-to-signal/`
-- Hugging Face model:
-  `https://huggingface.co/AION-Analytics/aion-news-to-signal`
-- Hugging Face live demo:
-  `https://huggingface.co/spaces/AION-Analytics/aion-news-to-signal`
-- Continue Hub package:
-  `https://www.continue.dev/platform/aion-analytics-workspace/aion-news-to-signal-india`
-- Continue Hub UVX package:
-  `https://www.continue.dev/platform/aion-analytics-workspace/aion-news-to-signal-uvx`
-
-Glama public listing is not linked here yet because its public server page still returns `404` as of `2026-04-26`, even though the MCP server is already published to the official registry that Glama consumes.
-
-Measured on `2026-04-26` from this machine:
-
-- cold start proxy: `1.68 s`
-- warm latency average over 20 sequential requests: `716.6 ms`
-- warm p50: `661.6 ms`
-- throughput: `1.40 req/s`
-- response size: `3573 bytes`
-
-The current hosted endpoint is the Gradio API path:
-
-- `POST /gradio_api/call/v2/analyze`
-- then `GET /gradio_api/call/analyze/{event_id}`
-
-Single POST request in a dedicated production deployment is the intended commercial shape. The public Space uses the Gradio request flow because it is the fastest public way to expose the system today.
-
-## Local vs Hosted vs Production
-
-| Option | Where it runs | Typical latency | Cold start | Best for |
-|---|---|---|---|---|
-| Local | Your machine | `18.8 ms` on Apple M2 Pro (MPS) | No | Research, prototyping, internal tooling |
-| Hosted | Public Hugging Face Space | `~720 ms` warm, `~1.7 s` cold | Yes | Trial usage, demos, evaluation |
-| Production | Dedicated paid endpoint | `~200–400 ms` CPU, `<100 ms` GPU | No | Real trading systems, user-facing SaaS |
-
-## Positioning for Developers
-
-- Designed for LLM-based workflows, bots, and internal research tools
-- Works as a decision-layer API, not just a sentiment model
-- Compatible with broker-linked trading systems and market dashboards
-- Useful when you want structured market reasoning instead of raw sentiment text
-
-### MCP
-
-Use directly inside ChatGPT, Claude, or Cursor via MCP. No API integration required.
-
-Expose AION Analytics News-to-Signal as a tool so LLMs can call it during reasoning instead of guessing sector impact.
-
-No backend required. Works as a plug-and-play tool inside LLM workflows.
-
-## Copy-Paste Example (Hosted Version)
-
-```python
-import json
-import requests
-
-BASE = "https://aion-analytics-aion-news-to-signal.hf.space"
-headline = "RBI hikes repo rate by 25 bps"
-
-post_resp = requests.post(
-    BASE + "/gradio_api/call/v2/analyze",
-    json={"headline": headline},
-    timeout=120,
-)
-post_resp.raise_for_status()
-event_id = post_resp.json()["event_id"]
-
-get_resp = requests.get(
-    BASE + f"/gradio_api/call/analyze/{event_id}",
-    timeout=120,
-)
-get_resp.raise_for_status()
-
-sse_text = get_resp.text
-payload = json.loads(sse_text.split("data: ", 1)[1])[0]
-print(payload["event"])
-print(payload["trade_direction_signals"])
-```
-
-## Integration Anchors
-
-- Works with Zerodha Kite Connect API
-- Compatible with Angel One SmartAPI
-- Integrates with Upstox Developer API
-- Can be used with Zerodha Streak
-- Can be used with Tradetron
-- Can be used with AlgoTest
-- Plug into any trading bot in under 5 minutes
-
-Useful search anchors:
-
-- stock market news analysis India
-- news based trading strategy India
-- NSE sector analysis from news
-- convert news to stock signals
-- generate trade ideas from Indian news
-- which sectors go up or down from a news event
-
-## Active Components
-
-- `aion.py`
-- `pipeline_e2e_test.py`
-- `sector_propagation_engine.py`
-- `stakeholder_impact_mapper.py`
-- `briefing_generator.py`
-- `causal_discovery_miner.py`
-- `rule_approval_cli.py`
-- `weather_crop_demo.py`
-- `multi_task_model.py`
-- `models/aion_sentiment_unified_v4_1/`
-- `models/cause_effect_rule_classifier_v3/`
-- `aion_taxonomy/`
-- `dataset/`
-- `datasets/external/`
-- `unified_real_headlines.csv`
+  - `https://pypi.org/project/aion-indian-market-intelligence/`
+- GitHub repository:
+  - `https://github.com/AION-Analytics/aion-indian-market-intelligence`
+- Hugging Face model surface:
+  - `https://huggingface.co/AION-Analytics/aion-news-to-signal`
+- Hugging Face demo Space:
+  - `https://huggingface.co/spaces/AION-Analytics/aion-news-to-signal`
+- MCP server repo:
+  - `https://github.com/AION-Analytics/aion-mcp-server`
+- MCP marketplace maintenance register:
+  - `docs/MCP_MARKETPLACE_MAINTENANCE.md`
 
 ## Current Limits
 
-- Weather/crop rule coverage still depends on explicit weather, crop, region, or policy cues in the headline
-- The primitive sector matrix is partly heuristic and is not yet fully back-solved from human-labeled sector data
-- The cause-effect classifier v3 is useful, but coverage on the full real-headline corpus is still limited
-- The public hosted API is a Hugging Face Space, so it uses the Gradio API flow rather than a single-purpose production REST gateway
-- Pricing and dedicated low-latency tiers in this README are draft positioning, not a live billing system
+- production usage is quota-controlled at the API layer
+- weather and crop coverage still depends on explicit cues in the headline
+- sparse headlines can remain ambiguous
+- pricing and latency tiers above are current commercial positioning and may evolve
+- this repository does not contain model weights. The PyPI package provides client tooling only. Production inference requires the hosted API.
 
-## Market Positioning Claim (Draft)
-
-Draft claim:
-
-No open-source or developer-accessible API currently offers this combination of Indian-market event detection, sector-level causal impact, stakeholder decomposition, and weather/trade propagation in one developer-facing workflow.
-
-Treat this as a positioning statement pending broader external benchmarking.
-
-## Goal Statement
-
-Build the default developer layer for converting Indian financial news into actionable sector intelligence, trading signals, and structured reasoning for bots, dashboards, and LLM workflows.
+Compatibility note: the Python import path remains `aion_news_to_signal`, and
+some legacy slugs remain visible as redirects or repository identifiers. They
+are not the public product identity.

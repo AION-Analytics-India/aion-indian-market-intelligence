@@ -2,6 +2,92 @@
 *Auto-maintained by Qwen Code + aion_algo_trading rules*
 *Revert any change by finding timestamp and restoring from .bkup_{date} backup*
 
+## [Package Cleanup] — 2026-06-05
+### Changed
+- Added package-local AGENTS.md doctrine for aion-sectormap, aion-volweight, aion-newsimpact, and aion-taxonomy.
+- Normalized package README H1 headings to package names for aion-sectormap, aion-volweight, aion-newsimpact, and aion-taxonomy.
+- Updated aion-sectormap package fallback data path from the old root-level location to packages/aion-sectormap.
+- Bumped aion-indian-market-intelligence PyPI package metadata to 1.0.5 and wired the PyPI long description to PYPI_DESCRIPTION.md content.
+- Aligned aion-taxonomy source examples and README with taxonomy_india_v2_calibrated.yaml as the canonical taxonomy file.
+- Replaced package READMEs for aion-sectormap, aion-volweight, aion-newsimpact, and aion-taxonomy with approved API-accurate documentation.
+
+## [Security] — 2026-06-04
+### Fixed
+- Added *.db, *.sqlite, *.sqlite3 to .gitignore (critical gap)
+- Added *.parquet to .gitignore (critical gap)
+- Added src/api/ to .gitignore
+- Added confidential patent docs to .gitignore
+- Added CODEX_TASK_*.md to .gitignore for internal Codex/AI agent task files
+
+## [1.0.5] — 2026-06-04
+### Changed
+- Internal PyPI package module renamed from aion_news_to_signal to aion_indian_market_intelligence
+- MCP entry points updated to load aion_indian_market_intelligence.mcp_server
+- Legacy aion-news-to-signal-mcp entry point retained as alias
+- Updated root AGENTS.md to make aion_indian_market_intelligence the canonical public import
+### Fixed
+- Updated legacy aion compatibility shim to import from aion_indian_market_intelligence after the internal module rename
+
+## [Reorganization] — 2026-06-04
+### Changed
+- Moved satellite packages to packages/ directory
+- Moved distribution surfaces to distribution/ directory
+- Moved review_queue to ops/
+- Archived aion-sentiment to archive/
+- Removed empty self_hosted_aion_news_to_signal/ directory
+### Fixed
+- Updated runtime/script references for moved packages/, distribution/, and ops/ paths before JSON config review
+- Updated release JSON validation commands to import aion_indian_market_intelligence while preserving legacy/public URL references
+
+## [Phase 5] — 2026-06-04
+### Changed
+- GitHub repo renamed from aion-news-to-signal to aion-indian-market-intelligence
+- git remote updated to new URL
+- All internal GitHub URL references updated
+
+## [2026-05-17 10:30:00 IST]
+- [feat]: Added autonomous `aion-indian-market-calendar` NSE circular operations: deterministic gate evaluation, signed live-manifest refresh, scheduler-ready polling, generated-override rollback, and staged release-candidate preparation without autonomous PyPI publication. Added package-local doctrine that treats the wheel as a stable snapshot and `live_events.json` as the operational truth, with GitHub/GitHub Actions explicitly banned for this package's calendar workflows. (files: `aion_indian_market_calendar/live_overrides.py`, `scripts/run_nse_calendar_auto_updates.py`, `scripts/apply_nse_circular_to_calendar.py`, `aion_indian_market_calendar/AGENTS.md`, `AGENTS.md`, `aion_indian_market_calendar/README.md`, `aion_indian_market_calendar/CHANGELOG.md`, `docs/ARCHITECTURE.md`, `docs/API_SPEC.md`, `docs/EXTENSION_GUIDE.md`) | Task: market-calendar-autonomous-circulars-001
+  type = feat
+  task_id = market-calendar-autonomous-circulars-001
+
+## [2026-05-16 09:35:00 IST]
+- [fix]: Aligned public publishing surfaces around `AION Indian Market Intelligence`, `macro event analysis`, and `sector impact analysis`; published `aion-indian-market-intelligence==1.0.4` as the forward PyPI/MCP package identity while retaining `aion_news_to_signal` imports and `aion-news-to-signal` slugs as compatibility-only surfaces. Updated PyPI metadata, HF model/Space copy, MCP server metadata, Continue configs, release manifests, marketplace maintenance docs, and public docs to remove execution-oriented positioning from canonical copy. (files: `README.md`, `README_GITHUB.md`, `pypi_aion_news_to_signal/`, `hf_model_aion_news_to_signal/`, `hf_space_aion_news_to_signal/`, `aion_news_to_signal/mcp_server.py`, `wheel_build/`, `publish_assets/aion-mcp-server/`, `publish_assets/releases/`, `continue/`, `docs/`) | Task: indian-market-intelligence-identity-cleanup-001
+  type = fix
+  task_id = indian-market-intelligence-identity-cleanup-001
+
+## [2026-05-15 11:41:00 IST]
+- [feat]: Closed automation gaps across the self-evolving model loop: weekly AION Indian Market Intelligence fallback review now generates guarded event fine-tuning JSONL and can trigger the fine-tune gate, Veritas has a ClickHouse-backed weekly conformal-k recalibrator plus serving-time reload support in the premarket predictor, and Sentinel has an explicit Sunday full Screener refresh launchd job alongside the existing daily XBRL/alert pipeline checks (files: `scripts/maintenance/weekly_rule_review.py`, `scripts/maintenance/finetune_event_model.py`, `scripts/maintenance/recalibrate_veritas.py`, `plists/com.aion.news-signal-event-finetune.plist`, `plists/com.aion.veritas.recalibrate.plist`, external launchd/predictor/Sentinel pipeline files) | Task: self-evolving-automation-001
+  type = feat
+  task_id = self-evolving-automation-001
+
+## [2026-05-12 00:00:00 IST]
+- [docs]: Added explicit public verification commands for `aion-indian-market-calendar` adoption measurement. The README and architecture doc now show the exact `curl` commands for PyPIStats download events and the dashboard live-refresh telemetry summary, so public usage claims can be reproduced from source instead of inferred. (files: `aion_indian_market_calendar/README.md`, `docs/ARCHITECTURE.md`) | Task: market-calendar-public-metrics-001
+- [feat]: Added privacy-safe active-install telemetry to `aion-indian-market-calendar` live refresh. Bundled/offline usage stays silent; AION-owned refresh URLs receive only a random local install ID plus package/Python/OS version headers, with opt-out via `telemetry=False` or `AION_CALENDAR_TELEMETRY=0` (files: `aion_indian_market_calendar/_calendar.py`, `aion_indian_market_calendar/tests/test_calendar.py`, `aion_indian_market_calendar/README.md`, `aion_indian_market_calendar/CHANGELOG.md`, `aion_indian_market_calendar/pyproject.toml`, `docs/ARCHITECTURE.md`) | Task: market-calendar-telemetry-001
+- [docs]: Prepared `aion-indian-market-calendar` v1.1.3 metadata-only release with stronger LLM/search discovery terms for `pandas_market_calendars`, algorithmic trading, quantitative finance, NSE holidays, Indian trading holidays, BSE trading calendar, MCX evening session, market session validation, and India financial market calendar (files: `aion_indian_market_calendar/README.md`, `aion_indian_market_calendar/CHANGELOG.md`, `aion_indian_market_calendar/pyproject.toml`) | Task: market-calendar-seo-001
+  type = feat
+  task_id = market-calendar-public-metrics-001,market-calendar-telemetry-001,market-calendar-seo-001
+
+## [2026-05-11 10:48:00 IST]
+- [fix]: Added the versioned self-hosted `aion-news-to-signal` package source (`1.0.0.post2`) and moved intraday runtime fixes out of `.venv/site-packages`. The package-level `analyze()` path now deterministically handles geopolitical conflict, oil-supply shock, and commercial LPG/fuel price policy headlines, and suppresses low-confidence out-of-domain classifier fallback for non-financial nonsense headlines (files: `aion_news_to_signal_self_hosted/pyproject.toml`, `aion_news_to_signal_self_hosted/README.md`, `aion_news_to_signal_self_hosted/src/aion/pipeline.py`) | Task: package-runtime-fix-001
+  type = fix
+  task_id = package-runtime-fix-001
+
+## [2026-05-11 10:35:00 IST]
+- [feat]: Added `geopolitical_conflict` to the dynamic macro fallback template set and replaced simple overlap matching with weighted keyword-family scoring plus a 10% meaningful-token density gate, so conflict terms such as attack/truce/military outrank generic regulatory words such as rules/talks (files: `cause_effect_rule_classifier_v3/macro_event_templates.yaml`, `dynamic_macro_propagator.py`, `sector_propagation_engine.py`, `docs/ARCHITECTURE.md`) | Task: geopolitical-conflict-fallback-001
+  type = feat
+  task_id = geopolitical-conflict-fallback-001
+
+## [2026-05-11 08:20:00 IST]
+- [feat]: Added dynamic macro-event fallback propagation for headlines that do not trigger specific YAML rules or taxonomy sector vectors. The fallback uses broad macro templates, vocabulary expansion, entity extraction, dependency weighting, explicit `raw_assignment.dynamic_fallback_*` telemetry, SQLite fallback logging, and review-queue refinement from repeated template hits (files: `cause_effect_rule_classifier_v3/macro_event_templates.yaml`, `dynamic_macro_propagator.py`, `sector_propagation_engine.py`, `aion.py`, `src/api/null_event_logger.py`, `scripts/maintenance/gather_null_events.py`, `scripts/maintenance/suggest_new_rules.py`, `src/api/app.py`, `src/api/server.py`, `docs/ARCHITECTURE.md`) | Task: dynamic-macro-fallback-001
+- [fix]: Corrected `macro_rbi_repo_hike` sector polarity so higher rates are negative for rate-sensitive sectors and only defensive/INR-support logic remains positive where explicitly intended (files: `aion_taxonomy/taxonomy_india_v2_calibrated.yaml`) | Task: random-headline-verification-001
+  type = feat,fix
+  task_id = dynamic-macro-fallback-001,random-headline-verification-001
+
+## [2026-05-03 22:10:00 IST]
+- [fix]: Standardized the market-intelligence output around `sector_vector` and `sector_directional_bias`; removed public execution-oriented framing from runtime, MCP descriptions, package docs, HF model card, and tutorial surfaces (files: `aion.py`, `aion_news_to_signal/mcp_server.py`, `hf_space_aion_news_to_signal/aion.py`, `wheel_build/aion/pipeline.py`, `README.md`, `docs/`, `pypi_aion_news_to_signal/`, `hf_model_aion_news_to_signal/`, `publish_assets/aion-zerodha-bot-tutorial/`) | Task: news-to-signal-contract-cleanup-001
+  type = fix
+  task_id = news-to-signal-contract-cleanup-001
+
 ## [2026-04-12 18:50:00 IST]
 - [release]: Pushed market intelligence layer to GitHub (commit f8f73d9) — 14 files, 1793 insertions; updated Hugging Face model card (commit 66fa66e) with 4-factor engine documentation (files: README.md, aion_taxonomy/README.md, aion-sentiment/src/aion_sentiment/__init__.py, aion_taxonomy/scripts/, scripts/, dataset/) | Task: task-018
   type = release
@@ -171,7 +257,7 @@ AION Unified Sentiment Model v1 — multi-task transformer for Indian financial 
 
 ### GitHub Repository
 
-- Repo: https://github.com/AION-Analytics/aion-news-to-signal
+- Repo: https://github.com/AION-Analytics/aion-indian-market-intelligence
 - Removed legacy aion-sentiment-in/ (24 files, 147,374 lines of old v1/v2/v3 code)
 - Removed emotions.py, NRC lexicons (141,893 lines), old tests, example.py
 - Updated README with unified model quick start and HuggingFace links
@@ -181,9 +267,9 @@ AION Unified Sentiment Model v1 — multi-task transformer for Indian financial 
 
 - Deleted et_headlines.txt, et_scrape_progress.txt (scrape artifacts)
 - Rewrote CHANGELOG.md with unified model documentation only
-- Removed outdated CONTRIBUTING.md (v3 release instructions)
+- Archived outdated legacy v3 contribution instructions; current extension guidance lives in docs/EXTENSION_GUIDE.md.
 
 ## [0.1.0] - 2026-03-14
 
-- Initial release: aion-sentiment with transformer-based sentiment analysis
+- Initial release: aion-sentiment with transformer-based financial text classification
 - Trained on 957K Indian financial news headlines

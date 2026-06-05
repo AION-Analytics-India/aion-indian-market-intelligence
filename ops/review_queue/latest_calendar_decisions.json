@@ -1,0 +1,14 @@
+{
+  "ran_at": "2026-05-17T05:07:39.146931+00:00",
+  "lookback_hours": 6,
+  "year": 2026,
+  "dry_run": true,
+  "signing_key_env": "AION_CALENDAR_MANIFEST_SIGNING_KEY",
+  "applied_count": 0,
+  "rollback_count": 0,
+  "items": [],
+  "override_revalidation": [],
+  "changes": [],
+  "validation": null,
+  "staged_release_candidate": null
+}

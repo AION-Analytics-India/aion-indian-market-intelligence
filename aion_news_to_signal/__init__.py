@@ -1,3 +1,3 @@
-from aion import analyze
+from .client import AIONClient, AIONError, analyze
 
-__all__ = ["analyze"]
+__all__ = ["AIONClient", "AIONError", "analyze"]
