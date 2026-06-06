@@ -15,6 +15,7 @@
 - **Local packaging and release workspace:** `/Users/lokeshgupta/aion_open_source`
 - **GitHub source/release target:** `origin=https://github.com/AION-Analytics/aion-indian-market-intelligence.git`
 - **API workflow credential file:** `/Users/lokeshgupta/.aion/api_tokens.json`. Use this file for approved GitHub/HF/PyPI/API workflow credentials; never print token values or write them into logs, docs, or changelogs.
+- **MCP publisher credential file:** `/Users/lokeshgupta/.config/mcp-publisher/token.json`. Use this file only for approved MCP registry publisher workflows; never print token values or write them into logs, docs, or changelogs.
 - **PyPI package surfaces:** `pypi_aion_news_to_signal/` and the public package contract documented in `README.md`
 - **Hugging Face surfaces:** `hf_model_aion_news_to_signal/` and `hf_space_aion_news_to_signal/`
 

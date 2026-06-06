@@ -28,6 +28,31 @@
   ],
   "releases": [
     {
+      "id": "aion-indian-market-intelligence-1.0.6",
+      "project_id": "aion-indian-market-intelligence",
+      "version": "1.0.6",
+      "published_at": "2026-06-06T09:13:59+05:30",
+      "safety": "metadata and registry fix",
+      "upgrade_command": "python -m pip install --upgrade aion-indian-market-intelligence",
+      "summary": "MCP registry ownership marker, semantic cleanup, and official MCP marketplace publication.",
+      "highlights": [
+        "Added MCP registry ownership marker to the PyPI long description.",
+        "Published official MCP registry entry io.github.AION-Analytics/aion-indian-market-intelligence version 1.0.6.",
+        "Deprecated legacy MCP registry entry io.github.AION-Analytics/aion-news-to-signal version 1.0.1.",
+        "Updated Hugging Face Space access-page variable to the canonical Indian Market Intelligence model page."
+      ],
+      "validation": [
+        "python -c \"from aion_indian_market_intelligence import analyze; print(callable(analyze))\"",
+        "mcp-publisher validate wheel_build/server.json"
+      ],
+      "links": {
+        "pypi": "https://pypi.org/project/aion-indian-market-intelligence/1.0.6/",
+        "documentation": "https://dashboard.aiondashboard.site/models/indian-market-intelligence",
+        "mcp_registry": "https://registry.modelcontextprotocol.io/",
+        "huggingface_space": "https://huggingface.co/spaces/AION-Analytics/aion-indian-market-intelligence"
+      }
+    },
+    {
       "id": "aion-indian-market-calendar-1.1.4",
       "project_id": "aion-indian-market-calendar",
       "version": "1.1.4",

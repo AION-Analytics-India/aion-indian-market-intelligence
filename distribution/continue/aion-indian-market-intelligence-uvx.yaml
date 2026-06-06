@@ -1,5 +1,5 @@
 name: AION Indian Market Intelligence for Macro Event & Sector Impact Analysis
-version: 1.0.4
+version: 1.0.6
 schema: v1
 mcpServers:
   - name: AION Indian Market Intelligence for Macro Event & Sector Impact Analysis
@@ -7,5 +7,5 @@ mcpServers:
     command: uvx
     args:
       - --from
-      - aion-indian-market-intelligence==1.0.4
+      - aion-indian-market-intelligence==1.0.6
       - aion-indian-market-intelligence-mcp

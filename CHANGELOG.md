@@ -8,6 +8,9 @@
 - Updated Docker MCP entrypoint to `aion_indian_market_intelligence.mcp_server`.
 - Normalized public-facing docs, tutorial assets, release JSON, and release feed URLs to the canonical `aion-indian-market-intelligence` identity.
 - Removed the legacy MCP console-script alias from the PyPI package metadata.
+- Published `aion-indian-market-intelligence==1.0.6` with MCP registry ownership marker `mcp-name: io.github.AION-Analytics/aion-indian-market-intelligence`.
+- Published official MCP registry entry `io.github.AION-Analytics/aion-indian-market-intelligence` version `1.0.6` and deprecated legacy `io.github.AION-Analytics/aion-news-to-signal` version `1.0.1`.
+- Updated Hugging Face Space variable `AION_ACCESS_PAGE_URL` to `/models/indian-market-intelligence`.
 
 ## [MCP Import Fix] — 2026-06-06
 ### Fixed

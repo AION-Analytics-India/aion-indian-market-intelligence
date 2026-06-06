@@ -9,7 +9,9 @@ Convert Indian financial news headlines into structured NSE sector impact vector
 
 ## What it does
 
-aion-indian-market-intelligence turns Indian financial news into machine-readable signals. It maps a headline to a macro-event ontology, propagates impact across NSE sectors, and applies a VIX volatility overlay to produce structured sector impact vectors. The output is a single JSON object built around the canonical `sector_vector` key.
+mcp-name: io.github.AION-Analytics/aion-indian-market-intelligence
+
+aion-indian-market-intelligence turns Indian financial news into machine-readable sector intelligence. It maps a headline to a macro-event ontology and returns structured sector impact vectors. The output is a single JSON object built around the canonical `sector_vector` key.
 
 ## Indian Market Intelligence for Macro Event Analysis
 
@@ -17,7 +19,7 @@ Built specifically for Indian markets. The pipeline recognises 95 macro event ty
 
 ## NSE Sector Impact Analysis
 
-For every headline, the engine emits a `sector_vector`: a per-sector signed weight indicating expected directional impact. Sector propagation uses input-output dependency weighting so that an event in one sector flows to its economically linked sectors, and a VIX overlay scales confidence to the prevailing volatility regime.
+For every headline, the engine emits a `sector_vector`: a per-sector signed weight for sector impact analysis and exposure review.
 
 ## Coverage
 
@@ -77,11 +79,11 @@ Claude Desktop config:
 
 ## Use Cases
 
-- **Premarket prediction** — feed overnight Indian financial news into a premarket model as structured features.
-- **Algorithmic trading** — convert event flow into sector signals for systematic strategies.
+- **Market intelligence dashboards** — convert Indian financial news into structured macro-event and sector impact features.
+- **Analyst copilots** — provide sector incidence vectors before LLM summarization.
 - **Portfolio risk** — quantify how a macro event propagates across held NSE sectors.
 - **Policy impact analysis** — assess SEBI and RBI actions as sector impact vectors.
-- **Event-driven strategies** — trigger logic from classified Indian financial news events.
+- **Event-driven financial inference** — route classified Indian financial news events into downstream review workflows.
 
 ## Output Format
 
