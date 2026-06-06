@@ -1,6 +1,8 @@
 # Data Flow
 
-## 1. `aion-news-to-signal`
+## 1. `aion-indian-market-intelligence`
+
+Canonical note: the public Python import path is `aion_indian_market_intelligence`, and the repository/model slug is `aion-indian-market-intelligence`.
 
 ## 1.1 Input
 
@@ -234,6 +236,8 @@ Actual output keys from `aion.analyze(...)`:
 ```
 
 ## 2. `aion-indian-market-calendar`
+
+Indian market calendar Python package for NSE market calendar checks, MCX trading calendar handling, Muhurat trading calendar API workflows, and market open India Python validation.
 
 ## 2.1 Bundled File Shape
 

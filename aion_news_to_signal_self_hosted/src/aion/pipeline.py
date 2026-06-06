@@ -23,7 +23,7 @@ from .taxonomy_impact import compute_all_sector_signals, get_macro_signal
 
 
 PACKAGE_ROOT = files("aion")
-MODEL_REPO_ID = "AION-Analytics/aion-news-to-signal"
+MODEL_REPO_ID = "AION-Analytics/aion-indian-market-intelligence"
 BASE_MODEL_REPO_ID = "distilbert-base-uncased"
 CAUSE_EFFECT_SUBDIR = "cause_effect_rule_classifier_v3"
 
@@ -32,8 +32,8 @@ def _cache_root() -> Path:
     if os.getenv("AION_CACHE_DIR"):
         return Path(os.getenv("AION_CACHE_DIR", "")).expanduser()
     if sys.platform == "darwin":
-        return Path.home() / "Library" / "Caches" / "aion-news-to-signal"
-    return Path.home() / ".cache" / "aion-news-to-signal"
+        return Path.home() / "Library" / "Caches" / "aion-indian-market-intelligence"
+    return Path.home() / ".cache" / "aion-indian-market-intelligence"
 
 
 def _local_files_only() -> bool:

@@ -13,17 +13,17 @@
       "name": "AION Indian Market Intelligence",
       "version_source": "wheel_build/setup.py",
       "homepage": "https://pypi.org/project/aion-indian-market-intelligence/",
-      "documentation": "https://dashboard.aiondashboard.site/models/news-to-signal",
+      "documentation": "https://dashboard.aiondashboard.site/models/indian-market-intelligence",
       "repository": "https://github.com/AION-Analytics/aion-indian-market-intelligence"
     },
     {
       "id": "aion-indian-market-calendar",
       "kind": "package",
       "name": "aion-indian-market-calendar",
-      "version_source": "aion_indian_market_calendar/pyproject.toml",
+      "version_source": "packages/aion_indian_market_calendar/pyproject.toml",
       "homepage": "https://pypi.org/project/aion-indian-market-calendar/",
-      "documentation": "https://huggingface.co/AION-Analytics/aion-indian-market-calendar",
-      "repository": "https://huggingface.co/AION-Analytics/aion-indian-market-calendar"
+      "documentation": "https://dashboard.aiondashboard.site/open-source/indian-market-calendar",
+      "repository": "https://pypi.org/project/aion-indian-market-calendar/"
     }
   ],
   "releases": [
@@ -47,7 +47,7 @@
       ],
       "links": {
         "pypi": "https://pypi.org/project/aion-indian-market-calendar/",
-        "documentation": "https://huggingface.co/AION-Analytics/aion-indian-market-calendar"
+        "documentation": "https://dashboard.aiondashboard.site/open-source/indian-market-calendar"
       }
     },
     {
@@ -69,7 +69,7 @@
       ],
       "links": {
         "pypi": "https://pypi.org/project/aion-indian-market-calendar/",
-        "documentation": "https://huggingface.co/AION-Analytics/aion-indian-market-calendar"
+        "documentation": "https://dashboard.aiondashboard.site/open-source/indian-market-calendar"
       }
     },
     {
@@ -90,7 +90,7 @@
       ],
       "links": {
         "pypi": "https://pypi.org/project/aion-indian-market-calendar/1.1.0/",
-        "documentation": "https://huggingface.co/AION-Analytics/aion-indian-market-calendar"
+        "documentation": "https://dashboard.aiondashboard.site/open-source/indian-market-calendar"
       }
     },
     {
@@ -111,12 +111,11 @@
       ],
       "links": {
         "pypi": "https://pypi.org/project/aion-indian-market-intelligence/",
-        "legacy_pypi": "https://pypi.org/project/aion-news-to-signal/",
-        "documentation": "https://dashboard.aiondashboard.site/models/news-to-signal",
+        "documentation": "https://dashboard.aiondashboard.site/models/indian-market-intelligence",
         "api_gateway": "https://dashboard.aiondashboard.site/systems/api-gateway",
         "registration": "https://dashboard.aiondashboard.site/access/register",
         "github": "https://github.com/AION-Analytics/aion-indian-market-intelligence",
-        "huggingface": "https://huggingface.co/AION-Analytics/aion-news-to-signal"
+        "huggingface": "https://huggingface.co/AION-Analytics/aion-indian-market-intelligence"
       }
     }
   ]

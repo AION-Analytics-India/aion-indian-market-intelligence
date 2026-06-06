@@ -31,7 +31,7 @@ export AION_API_KEY="<your_api_key>"
 ## Canonical Imports
 
 ```python
-from aion_news_to_signal import analyze
+from aion_indian_market_intelligence import analyze
 ```
 
 Legacy compatibility alias:
@@ -237,9 +237,9 @@ Enterprise: custom, GPU-dedicated. Contact via dashboard.
 - GitHub repository:
   - `https://github.com/AION-Analytics/aion-indian-market-intelligence`
 - Hugging Face model surface:
-  - `https://huggingface.co/AION-Analytics/aion-news-to-signal`
+  - `https://huggingface.co/AION-Analytics/aion-indian-market-intelligence`
 - Hugging Face demo Space:
-  - `https://huggingface.co/spaces/AION-Analytics/aion-news-to-signal`
+  - `https://huggingface.co/spaces/AION-Analytics/aion-indian-market-intelligence`
 - MCP server repo:
   - `https://github.com/AION-Analytics/aion-mcp-server`
 - MCP marketplace maintenance register:
@@ -253,6 +253,6 @@ Enterprise: custom, GPU-dedicated. Contact via dashboard.
 - pricing and latency tiers above are current commercial positioning and may evolve
 - this repository does not contain model weights. The PyPI package provides client tooling only. Production inference requires the hosted API.
 
-Compatibility note: the Python import path remains `aion_news_to_signal`, and
-some legacy slugs remain visible as redirects or repository identifiers. They
+Canonical note: the public Python import path is `aion_indian_market_intelligence`.
+Legacy slugs may remain visible only as redirects or historical records; they
 are not the public product identity.

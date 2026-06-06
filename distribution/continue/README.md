@@ -6,7 +6,7 @@ Macro-event and sector impact intelligence for Indian financial markets.
 
 Structured analysis of how policy, economic, weather, and geopolitical events affect Indian market sectors.
 
-Legacy slug: `aion-news-to-signal`.
+Legacy slug: `aion-indian-market-intelligence`.
 
 Files:
 

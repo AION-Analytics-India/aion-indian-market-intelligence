@@ -2,6 +2,24 @@
 *Auto-maintained by Qwen Code + aion_algo_trading rules*
 *Revert any change by finding timestamp and restoring from .bkup_{date} backup*
 
+## [Identity Alignment] — 2026-06-06
+### Fixed
+- Updated self-hosted pipeline Hugging Face repo ID and cache directory names to `aion-indian-market-intelligence`.
+- Updated Docker MCP entrypoint to `aion_indian_market_intelligence.mcp_server`.
+- Normalized public-facing docs, tutorial assets, release JSON, and release feed URLs to the canonical `aion-indian-market-intelligence` identity.
+- Removed the legacy MCP console-script alias from the PyPI package metadata.
+
+## [MCP Import Fix] — 2026-06-06
+### Fixed
+- Updated `publish_assets/aion-mcp-server/aion_mcp_server.py` to import `analyze` from `aion_indian_market_intelligence` instead of the legacy `aion_news_to_signal` package name.
+
+## [Calendar Reorganization] — 2026-06-05
+### Changed
+- Relocated `aion-indian-market-calendar` source documentation references to `packages/aion_indian_market_calendar/`.
+- Updated calendar source-map, extension, cleanup, system overview, and boundary-audit docs to remove stale root-level package locations.
+- Confirmed calendar package import name remains `aion_indian_market_calendar` and PyPI package name remains `aion-indian-market-calendar`.
+- Aligned calendar package metadata and release documentation links to the dashboard canonical page at `/open-source/indian-market-calendar`.
+
 ## [Package Cleanup] — 2026-06-05
 ### Changed
 - Added package-local AGENTS.md doctrine for aion-sectormap, aion-volweight, aion-newsimpact, and aion-taxonomy.
@@ -23,7 +41,7 @@
 ### Changed
 - Internal PyPI package module renamed from aion_news_to_signal to aion_indian_market_intelligence
 - MCP entry points updated to load aion_indian_market_intelligence.mcp_server
-- Legacy aion-news-to-signal-mcp entry point retained as alias
+- Legacy MCP console-script alias removed from current package metadata; `aion-indian-market-intelligence-mcp` is the only promoted entry point
 - Updated root AGENTS.md to make aion_indian_market_intelligence the canonical public import
 ### Fixed
 - Updated legacy aion compatibility shim to import from aion_indian_market_intelligence after the internal module rename
@@ -46,7 +64,7 @@
 - All internal GitHub URL references updated
 
 ## [2026-05-17 10:30:00 IST]
-- [feat]: Added autonomous `aion-indian-market-calendar` NSE circular operations: deterministic gate evaluation, signed live-manifest refresh, scheduler-ready polling, generated-override rollback, and staged release-candidate preparation without autonomous PyPI publication. Added package-local doctrine that treats the wheel as a stable snapshot and `live_events.json` as the operational truth, with GitHub/GitHub Actions explicitly banned for this package's calendar workflows. (files: `aion_indian_market_calendar/live_overrides.py`, `scripts/run_nse_calendar_auto_updates.py`, `scripts/apply_nse_circular_to_calendar.py`, `aion_indian_market_calendar/AGENTS.md`, `AGENTS.md`, `aion_indian_market_calendar/README.md`, `aion_indian_market_calendar/CHANGELOG.md`, `docs/ARCHITECTURE.md`, `docs/API_SPEC.md`, `docs/EXTENSION_GUIDE.md`) | Task: market-calendar-autonomous-circulars-001
+- [feat]: Added autonomous `aion-indian-market-calendar` NSE circular operations: deterministic gate evaluation, signed live-manifest refresh, scheduler-ready polling, generated-override rollback, and staged release-candidate preparation without autonomous PyPI publication. Added package-local doctrine that treats the wheel as a stable snapshot and `live_events.json` as the operational truth, with GitHub/GitHub Actions explicitly banned for this package's calendar workflows. (files: `packages/aion_indian_market_calendar/live_overrides.py`, `scripts/run_nse_calendar_auto_updates.py`, `scripts/apply_nse_circular_to_calendar.py`, `packages/aion_indian_market_calendar/AGENTS.md`, `AGENTS.md`, `packages/aion_indian_market_calendar/README.md`, `packages/aion_indian_market_calendar/CHANGELOG.md`, `docs/ARCHITECTURE.md`, `docs/API_SPEC.md`, `docs/EXTENSION_GUIDE.md`) | Task: market-calendar-autonomous-circulars-001
   type = feat
   task_id = market-calendar-autonomous-circulars-001
 
@@ -61,9 +79,9 @@
   task_id = self-evolving-automation-001
 
 ## [2026-05-12 00:00:00 IST]
-- [docs]: Added explicit public verification commands for `aion-indian-market-calendar` adoption measurement. The README and architecture doc now show the exact `curl` commands for PyPIStats download events and the dashboard live-refresh telemetry summary, so public usage claims can be reproduced from source instead of inferred. (files: `aion_indian_market_calendar/README.md`, `docs/ARCHITECTURE.md`) | Task: market-calendar-public-metrics-001
-- [feat]: Added privacy-safe active-install telemetry to `aion-indian-market-calendar` live refresh. Bundled/offline usage stays silent; AION-owned refresh URLs receive only a random local install ID plus package/Python/OS version headers, with opt-out via `telemetry=False` or `AION_CALENDAR_TELEMETRY=0` (files: `aion_indian_market_calendar/_calendar.py`, `aion_indian_market_calendar/tests/test_calendar.py`, `aion_indian_market_calendar/README.md`, `aion_indian_market_calendar/CHANGELOG.md`, `aion_indian_market_calendar/pyproject.toml`, `docs/ARCHITECTURE.md`) | Task: market-calendar-telemetry-001
-- [docs]: Prepared `aion-indian-market-calendar` v1.1.3 metadata-only release with stronger LLM/search discovery terms for `pandas_market_calendars`, algorithmic trading, quantitative finance, NSE holidays, Indian trading holidays, BSE trading calendar, MCX evening session, market session validation, and India financial market calendar (files: `aion_indian_market_calendar/README.md`, `aion_indian_market_calendar/CHANGELOG.md`, `aion_indian_market_calendar/pyproject.toml`) | Task: market-calendar-seo-001
+- [docs]: Added explicit public verification commands for `aion-indian-market-calendar` adoption measurement. The README and architecture doc now show the exact `curl` commands for PyPIStats download events and the dashboard live-refresh telemetry summary, so public usage claims can be reproduced from source instead of inferred. (files: `packages/aion_indian_market_calendar/README.md`, `docs/ARCHITECTURE.md`) | Task: market-calendar-public-metrics-001
+- [feat]: Added privacy-safe active-install telemetry to `aion-indian-market-calendar` live refresh. Bundled/offline usage stays silent; AION-owned refresh URLs receive only a random local install ID plus package/Python/OS version headers, with opt-out via `telemetry=False` or `AION_CALENDAR_TELEMETRY=0` (files: `packages/aion_indian_market_calendar/_calendar.py`, `packages/aion_indian_market_calendar/tests/test_calendar.py`, `packages/aion_indian_market_calendar/README.md`, `packages/aion_indian_market_calendar/CHANGELOG.md`, `packages/aion_indian_market_calendar/pyproject.toml`, `docs/ARCHITECTURE.md`) | Task: market-calendar-telemetry-001
+- [docs]: Prepared `aion-indian-market-calendar` v1.1.3 metadata-only release with stronger LLM/search discovery terms for `pandas_market_calendars`, algorithmic trading, quantitative finance, NSE holidays, Indian trading holidays, BSE trading calendar, MCX evening session, market session validation, and India financial market calendar (files: `packages/aion_indian_market_calendar/README.md`, `packages/aion_indian_market_calendar/CHANGELOG.md`, `packages/aion_indian_market_calendar/pyproject.toml`) | Task: market-calendar-seo-001
   type = feat
   task_id = market-calendar-public-metrics-001,market-calendar-telemetry-001,market-calendar-seo-001
 

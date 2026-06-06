@@ -3,4 +3,4 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
-CMD ["python", "-m", "aion_news_to_signal.mcp_server"]
+CMD ["python", "-m", "aion_indian_market_intelligence.mcp_server"]

@@ -34,12 +34,12 @@
 - Do not create ad hoc `.bak` files. Move superseded docs or release artifacts into dated locations under `archive/`.
 
 ## 5. Key Dependencies Map
-- `aion_news_to_signal/__init__.py` -> canonical package surface exporting `analyze` for library consumers.
+- `pypi_aion_news_to_signal/src/aion_indian_market_intelligence/__init__.py` -> canonical package surface exporting `analyze` for library consumers.
 - `aion.py` -> local/public compatibility entrypoint and legacy alias surface.
 - `sector_propagation_engine.py` -> core taxonomy, disambiguation, rule, and propagation engine consumed by the `analyze` path.
 - `stakeholder_impact_mapper.py` -> consumes the post-VIX sector vector and reshapes it into stakeholder-facing views.
-- `aion_indian_market_calendar/` -> separate package surface for India market session logic; keep its package contract stable when editing shared calendar behavior.
-- `aion_indian_market_calendar/AGENTS.md` -> package-local operating doctrine for `aion-indian-market-calendar`, including the explicit ban on GitHub/GitHub Actions automation for calendar polling, live-delta mutation, and release-trigger workflows.
+- `packages/aion_indian_market_calendar/` -> separate package surface for India market session logic; keep its package contract stable when editing shared calendar behavior.
+- `packages/aion_indian_market_calendar/AGENTS.md` -> package-local operating doctrine for `aion-indian-market-calendar`, including the explicit ban on GitHub/GitHub Actions automation for calendar polling, live-delta mutation, and release-trigger workflows.
 
 ## 6. Backup & Archive Policy
 - **Baseline backup path:** `archive/` until a dedicated full-project baseline path is established.
@@ -51,8 +51,8 @@
 
 ## 8. Common Proof Commands
 - `./venv/bin/python --version`
-- `./venv/bin/python -m compileall aion.py aion_news_to_signal`
+- `./venv/bin/python -m compileall aion.py pypi_aion_news_to_signal/src/aion_indian_market_intelligence`
 - `./venv/bin/python -c "from aion_indian_market_intelligence import analyze; print(callable(analyze))"`
 - `./venv/bin/python -c "from aion import analyze; print(callable(analyze))"`
-- `rg -n "sector_vector|sector_impacts|analyze" README.md docs aion.py aion_news_to_signal`
+- `rg -n "sector_vector|sector_impacts|analyze" README.md docs aion.py pypi_aion_news_to_signal/src/aion_indian_market_intelligence`
 - `git status --short`

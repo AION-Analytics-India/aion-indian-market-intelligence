@@ -1,6 +1,14 @@
 # API Specification
 
-## `aion-news-to-signal`
+## `aion-indian-market-intelligence`
+
+AION Indian Market Intelligence for Macro Event & Sector Impact Analysis.
+
+Primary description: Macro-event and sector impact intelligence for Indian financial markets.
+
+Secondary description: Structured analysis of how policy, economic, weather, and geopolitical events affect Indian market sectors.
+
+Canonical note: the public Python import path is `aion_indian_market_intelligence`, and the repository/model slug is `aion-indian-market-intelligence`.
 
 ## Python API
 
@@ -56,8 +64,8 @@ Actual observed keys:
 
 Canonical output note:
 
-- `sector_vector` is the detailed sector impact map
-- there is no `sector_impacts` key in the public `aion-news-to-signal` output contract
+- `sector_vector` is the canonical sector impact analysis output
+- there is no `sector_impacts` key in the public `aion-indian-market-intelligence` output contract
 
 Edge cases:
 
@@ -87,9 +95,9 @@ Behavior:
 Transport CLI:
 
 ```bash
-python -m aion_news_to_signal.mcp_server --transport stdio
-python -m aion_news_to_signal.mcp_server --transport sse
-python -m aion_news_to_signal.mcp_server --transport streamable-http
+python -m aion_indian_market_intelligence.mcp_server --transport stdio
+python -m aion_indian_market_intelligence.mcp_server --transport sse
+python -m aion_indian_market_intelligence.mcp_server --transport streamable-http
 ```
 
 Edge cases:
@@ -137,6 +145,8 @@ Response keys:
 ```
 
 ## `aion-indian-market-calendar`
+
+Indian market calendar Python package for NSE market calendar checks, MCX trading calendar handling, Muhurat trading calendar API workflows, and market open India Python validation.
 
 ## Constructors
 
@@ -309,6 +319,107 @@ Behavior:
 - returns `True` if live events were loaded successfully
 
 Observed failure behavior:
+
+## Live Override Helpers
+
+### `aion_indian_market_calendar.live_overrides.match_known_holiday_names`
+
+```python
+match_known_holiday_names(text: str, *, year: int = 2026) -> list[str]
+```
+
+Behavior:
+
+- scans text for bundled holiday names
+- intended for NSE circular-review tooling
+- useful for identifying candidates such as `Bakri Id` in incoming circular text
+
+### `aion_indian_market_calendar.live_overrides.apply_holiday_date_change`
+
+```python
+apply_holiday_date_change(
+    *,
+    holiday_name: str,
+    new_date: date | str,
+    live_path: str | Path,
+    year: int = 2026,
+    circular_url: str | None = None,
+    circular_title: str | None = None,
+    note: str | None = None,
+    save: bool = True,
+) -> HolidayDateShiftResult
+```
+
+Behavior:
+
+- clones the bundled holiday event group for `holiday_name` onto `new_date`
+- adds the old bundled event IDs to `deleted_ids`
+- writes live overrides into the target `live_events.json`
+- intended for NSE circular-driven holiday shifts such as Eid/Bakri-Id date movement
+- generated override records carry audit metadata such as `override_priority`, `effective_timestamp`, `source_hash`, `source_url`, and `confidence_score`
+
+### `aion_indian_market_calendar.live_overrides.evaluate_nse_circular`
+
+```python
+evaluate_nse_circular(
+    *,
+    title: str,
+    link: str,
+    published: str = "",
+    summary: str = "",
+    live_path: str | Path,
+    year: int = 2026,
+    confidence_threshold: float = 0.9,
+    fetch_source: bool = True,
+    source_text: str | None = None,
+) -> NSECircularEvaluation
+```
+
+Behavior:
+
+- evaluates an NSE circular candidate against deterministic mutation gates
+- requires an official NSE source, one holiday name, one candidate date, a real state difference, and non-ambiguous wording before `should_apply=True`
+- returns the extracted dates, confidence score, source hash, and reason string for audit output
+
+### `aion_indian_market_calendar.live_overrides.revoke_generated_override`
+
+```python
+revoke_generated_override(
+    *,
+    live_path: str | Path,
+    year: int = 2026,
+    holiday_name: str | None = None,
+    source_hash: str | None = None,
+    reason: str,
+    save: bool = True,
+) -> RollbackResult
+```
+
+Behavior:
+
+- removes generated live override records for the target holiday or source hash
+- restores bundled `deleted_ids` when no later live override still supersedes them
+- intended for autonomous rollback after failed revalidation or contradictory later circulars
+
+### `aion_indian_market_calendar.live_overrides.refresh_live_manifest`
+
+```python
+refresh_live_manifest(
+    *,
+    live_path: str | Path,
+    manifest_path: str | Path,
+    signing_key: str | None = None,
+    source: dict[str, Any] | None = None,
+) -> LiveManifestResult
+```
+
+Behavior:
+
+- computes the `sha256` digest of `live_events.json`
+- writes `live_events.manifest.json`
+- adds an HMAC signature when `signing_key` is provided
+- includes active override counts for operational audit
+- intended for post-mutation verification and client-side trust of the live delta surface
 
 - invalid refresh URL:
   - logs warning

@@ -1,12 +1,14 @@
 # Runtime Behavior
 
-## `aion-news-to-signal`
+## `aion-indian-market-intelligence`
+
+Canonical note: the public Python import path is `aion_indian_market_intelligence`, and the repository/model slug is `aion-indian-market-intelligence`.
 
 ## Activation Path
 
 The main local execution path activates when:
 
-- Python imports `aion_news_to_signal.analyze`
+- Python imports `aion_indian_market_intelligence.analyze`
 - or MCP calls `analyze_news(...)`
 
 Runtime chain:
@@ -79,6 +81,8 @@ Practical expectation from structure:
   - `@lru_cache(maxsize=1)` on engine and VIX overlay
 
 ## `aion-indian-market-calendar`
+
+Indian market calendar Python package for NSE market calendar checks, MCX trading calendar handling, Muhurat trading calendar API workflows, and market open India Python validation.
 
 ## Activation Path
 

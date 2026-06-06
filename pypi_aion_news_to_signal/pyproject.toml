@@ -53,7 +53,6 @@ Issues = "https://github.com/AION-Analytics/aion-indian-market-intelligence/issu
 
 [project.scripts]
 aion-indian-market-intelligence-mcp = "aion_indian_market_intelligence.mcp_server:main"
-aion-news-to-signal-mcp = "aion_indian_market_intelligence.mcp_server:main"
 
 [tool.setuptools]
 package-dir = { "" = "src" }
