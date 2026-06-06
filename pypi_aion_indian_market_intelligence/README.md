@@ -1,5 +1,7 @@
 # aion-indian-market-intelligence
 
+mcp-name: io.github.AION-Analytics/aion-indian-market-intelligence
+
 Macro-event and sector impact intelligence for Indian financial markets.
 
 [![PyPI version](https://img.shields.io/pypi/v/aion-indian-market-intelligence)](https://pypi.org/project/aion-indian-market-intelligence/)

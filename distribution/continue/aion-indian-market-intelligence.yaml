@@ -1,5 +1,5 @@
 name: AION Indian Market Intelligence for Macro Event & Sector Impact Analysis
-version: 1.0.4
+version: 1.0.6
 schema: v1
 mcpServers:
   - name: AION Indian Market Intelligence for Macro Event & Sector Impact Analysis

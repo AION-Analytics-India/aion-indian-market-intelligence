@@ -1,5 +1,13 @@
 # Changelog
 
+## [Marketplace Release] — 2026-06-06
+
+### Changed
+
+- Published `aion-indian-market-intelligence` 1.0.6 to PyPI with MCP registry ownership marker.
+- Updated Continue/MCP distribution manifests to 1.0.6.
+- Published official MCP registry entry `io.github.AION-Analytics/aion-indian-market-intelligence` and deprecated the legacy `aion-news-to-signal` entry.
+
 ## [Public Repo Hardening] — 2026-06-05
 
 ### Changed
