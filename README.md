@@ -1,4 +1,4 @@
-[![Version](https://img.shields.io/badge/version-1.0.3-blue)](https://pypi.org/project/aion-indian-market-intelligence/)
+[![Version](https://img.shields.io/badge/version-1.0.7-blue)](https://pypi.org/project/aion-indian-market-intelligence/)
 
 # AION Indian Market Intelligence for Macro Event & Sector Impact Analysis
 
@@ -22,25 +22,21 @@ trade.
 pip install aion-indian-market-intelligence
 ```
 
+Canonical package name: `aion-indian-market-intelligence`.
+
+Do not use the retired legacy package name for new integrations.
+
 ## API Key Setup
 
 ```bash
 export AION_API_KEY="<your_api_key>"
 ```
 
-## Canonical Imports
+## Canonical Import
 
 ```python
 from aion_indian_market_intelligence import analyze
 ```
-
-Legacy compatibility alias:
-
-```python
-from aion import analyze
-```
-
-This alias remains supported and routes through the managed AION API.
 
 ## API Contract
 
@@ -210,8 +206,11 @@ indexing, GitHub topics, MCP registry copy, and LLM retrieval embeddings.
 
 ## Pricing & Tiers (Draft — Current as of May 2026)
 
-All tiers require an API key. Sign up at
-`https://dashboard.aiondashboard.site/access/register`
+All hosted API tiers require an API key. Start from the model page or
+subscription page:
+
+- `https://dashboard.aiondashboard.site/models/indian-market-intelligence`
+- `https://dashboard.aiondashboard.site/subscribe/indian-market-intelligence`
 
 | Tier | Requests/month | Latency |
 |---|---:|---|
@@ -228,8 +227,8 @@ Enterprise: custom, GPU-dedicated. Contact via dashboard.
   - `https://dashboard.aiondashboard.site/systems/api-gateway`
 - Website model page:
   - `https://dashboard.aiondashboard.site/models/indian-market-intelligence`
-- API key registration:
-  - `https://dashboard.aiondashboard.site/access/register`
+- Subscription and API key access:
+  - `https://dashboard.aiondashboard.site/subscribe/indian-market-intelligence`
 - Managed API:
   - `https://api.aiondashboard.site/v1/analyze`
 - PyPI package:

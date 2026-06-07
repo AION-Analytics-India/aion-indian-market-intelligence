@@ -2,6 +2,13 @@
 *Auto-maintained by Qwen Code + aion_algo_trading rules*
 *Revert any change by finding timestamp and restoring from .bkup_{date} backup*
 
+## [PyPI Identity Cleanup] — 2026-06-07
+### Fixed
+- Published canonical `aion-indian-market-intelligence==1.0.7` with `aion_indian_market_intelligence` as the only documented active Python import path.
+- Published retired legacy stub `aion-news-to-signal==1.0.5` as dependency-only package pointing to `aion-indian-market-intelligence>=1.0.7`; it contains no `aion_news_to_signal` runtime module.
+- Updated canonical PyPI long description, root README access links, and package version metadata to remove stale legacy-import wording.
+- Updated the dashboard model page SDK copy to show `aion_indian_market_intelligence` as the canonical import path.
+
 ## [Identity Alignment] — 2026-06-06
 ### Fixed
 - Updated self-hosted pipeline Hugging Face repo ID and cache directory names to `aion-indian-market-intelligence`.
