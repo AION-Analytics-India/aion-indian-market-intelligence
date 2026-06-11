@@ -63,7 +63,14 @@ Example output:
 
 ## MCP Server for Indian Financial Markets
 
-Run the managed API client as an MCP server so Claude and other MCP clients can request structured sector impact analysis on demand.
+Use the dedicated MCP wrapper package when you want `uvx` to work directly:
+
+```bash
+uvx aion-indian-market-intelligence-mcp
+```
+
+The MCP wrapper depends on this hosted API client. It does not bundle a local
+engine, taxonomy, rule files, models, or weights.
 
 Claude Desktop config:
 
@@ -72,7 +79,10 @@ Claude Desktop config:
   "mcpServers": {
     "aion-indian-market-intelligence": {
       "command": "uvx",
-      "args": ["aion-indian-market-intelligence-mcp"]
+      "args": ["aion-indian-market-intelligence-mcp"],
+      "env": {
+        "AION_API_KEY": "YOUR_API_KEY"
+      }
     }
   }
 }
@@ -101,10 +111,8 @@ Every call returns a JSON object. The canonical key is `sector_vector` (a sector
 
 ## Related AION packages
 
+- [aion-indian-market-intelligence-mcp](https://pypi.org/project/aion-indian-market-intelligence-mcp/) — MCP server wrapper for this hosted API client
 - [aion-indian-market-calendar](https://pypi.org/project/aion-indian-market-calendar/) — NSE/MCX/Muhurat trading calendar
-- [aion-sectormap](https://pypi.org/project/aion-sectormap/) — NSE ticker → sector / industry lookup
-- [aion-volweight](https://pypi.org/project/aion-volweight/) — VIX-regime confidence weighting
-- [aion-newsimpact](https://pypi.org/project/aion-newsimpact/) — historical headline impact search
 
 ---
 

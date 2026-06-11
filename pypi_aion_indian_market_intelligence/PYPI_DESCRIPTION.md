@@ -6,6 +6,6 @@ aion-indian-market-intelligence is an Indian market intelligence client package 
 
 Every call returns structured JSON for downstream dashboards, copilots, analyst workflows, and internal review tools. The package is an access layer for macro event analysis, policy impact analysis, event-driven market intelligence, and sector exposure intelligence. It is not an execution product, advice product, or local model runtime.
 
-The package ships an MCP-compatible Indian market intelligence server, so Claude and other MCP clients can request sector impact analysis through the managed API. Install with `pip install aion-indian-market-intelligence`, then call `analyze()` or run the bundled MCP server.
+For MCP clients, install the dedicated wrapper package with `uvx aion-indian-market-intelligence-mcp`. The wrapper depends on this hosted API client and does not bundle a local engine, taxonomy, rule files, models, or weights.
 
 Built for the NSE and BSE by AION Analytics.

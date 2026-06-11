@@ -1,4 +1,4 @@
-[![Version](https://img.shields.io/badge/version-1.0.5-blue)](https://pypi.org/project/aion-indian-market-intelligence/)
+[![Version](https://img.shields.io/pypi/v/aion-indian-market-intelligence)](https://pypi.org/project/aion-indian-market-intelligence/)
 
 # AION Indian Market Intelligence for Macro Event & Sector Impact Analysis
 
@@ -20,6 +20,12 @@ trade.
 
 ```bash
 pip install aion-indian-market-intelligence
+```
+
+MCP server wrapper:
+
+```bash
+uvx aion-indian-market-intelligence-mcp
 ```
 
 ## API Key Setup
@@ -222,14 +228,14 @@ Enterprise: custom, GPU-dedicated. Contact via dashboard.
   - `https://api.aiondashboard.site/v1/analyze`
 - PyPI package:
   - `https://pypi.org/project/aion-indian-market-intelligence/`
+- MCP PyPI package:
+  - `https://pypi.org/project/aion-indian-market-intelligence-mcp/`
 - GitHub repository:
   - `https://github.com/AION-Analytics/aion-indian-market-intelligence`
 - Hugging Face model surface:
   - `https://huggingface.co/AION-Analytics/aion-indian-market-intelligence`
 - Hugging Face demo Space:
   - `https://huggingface.co/spaces/AION-Analytics/aion-indian-market-intelligence`
-- MCP server repo:
-  - `https://github.com/AION-Analytics/aion-mcp-server`
 - MCP marketplace maintenance register:
   - `docs/MCP_MARKETPLACE_MAINTENANCE.md`
 

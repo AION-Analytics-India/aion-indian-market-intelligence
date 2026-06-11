@@ -1,0 +1,53 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "aion-indian-market-intelligence-mcp"
+version = "1.0.0"
+description = "MCP server wrapper for the hosted AION Indian Market Intelligence API."
+readme = "README.md"
+requires-python = ">=3.10"
+license = "AGPL-3.0-or-later"
+authors = [
+  { name = "AION Analytics", email = "info@aiondashboard.site" }
+]
+dependencies = [
+  "aion-indian-market-intelligence>=1.0.8",
+  "mcp>=1.27"
+]
+keywords = [
+  "aion",
+  "mcp",
+  "indian-market-intelligence",
+  "sector-impact-analysis",
+  "financial-news",
+  "hosted-api-client"
+]
+classifiers = [
+  "Development Status :: 3 - Alpha",
+  "Intended Audience :: Developers",
+  "Intended Audience :: Financial and Insurance Industry",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.10",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Office/Business :: Financial",
+  "Topic :: Software Development :: Libraries :: Python Modules"
+]
+
+[project.urls]
+Homepage = "https://github.com/AION-Analytics/aion-indian-market-intelligence"
+Documentation = "https://dashboard.aiondashboard.site/models/indian-market-intelligence"
+Issues = "https://github.com/AION-Analytics/aion-indian-market-intelligence/issues"
+
+[project.scripts]
+aion-indian-market-intelligence-mcp = "aion_mcp.server:main"
+
+[tool.setuptools]
+package-dir = { "" = "src" }
+
+[tool.setuptools.packages.find]
+where = ["src"]
