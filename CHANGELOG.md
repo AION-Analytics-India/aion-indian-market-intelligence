@@ -1,5 +1,27 @@
 # Changelog
 
+## [MCP Marketplace Metadata] - 2026-06-11
+
+### Added
+
+- Added `docs/mcp_marketplace_registry.json` as the maintained marketplace surface register.
+- Added `docs/MCP_MARKETPLACE_MAINTENANCE.md` as the human-readable maintenance note for MCP marketplaces.
+- Added `distribution/mcp/server.json` for the official MCP registry manifest using the dedicated MCP PyPI package.
+
+### Changed
+
+- Updated Continue configs, marketplace listing copy, standalone MCP repo copy, and API docs to use `aion-indian-market-intelligence-mcp` directly.
+- Removed stale MCP marketplace guidance that used `uvx --from aion-indian-market-intelligence==1.0.6`.
+
+### Validation
+
+- `./venv/bin/python -m json.tool docs/mcp_marketplace_registry.json`
+- `./venv/bin/python -m json.tool distribution/mcp/server.json`
+- `./venv/bin/python` YAML load check for `distribution/continue/*.yaml`
+- `rg` scan for stale `uvx --from aion-indian-market-intelligence==1.0.6` marketplace guidance outside this changelog
+- PyPI JSON check: `aion-indian-market-intelligence-mcp==1.0.0`, `aion-indian-market-intelligence==1.0.8`
+- `UV_CACHE_DIR=/tmp/aion_uv_cache_mcp_marketplace uvx aion-indian-market-intelligence-mcp --help`
+
 ## [MCP Package Shim] - 2026-06-11
 
 ### Added

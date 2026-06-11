@@ -15,6 +15,13 @@ AION Indian Market Intelligence lets Claude request structured macro event analy
 - Provide event-driven market intelligence for dashboards, copilots, and review workflows
 - Keep the tool boundary explicit: structured interpretation, not trade execution or advice
 
+**Distribution:**
+- MCP package: `aion-indian-market-intelligence-mcp`
+- Run command: `uvx aion-indian-market-intelligence-mcp`
+- API key: `AION_API_KEY`
+- Managed endpoint: `POST https://api.aiondashboard.site/v1/analyze`
+- Boundary: hosted API wrapper only; no local taxonomy, rule files, model weights, or inference engine
+
 **Example prompts:**
 1. "Analyze this headline for NSE sector impact: 'RBI holds repo rate steady and indicates the tightening cycle may pause.'"
 2. "How would a SEBI tightening of F&O margin rules affect Indian broking and AMC sectors?"

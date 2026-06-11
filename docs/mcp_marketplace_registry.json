@@ -1,0 +1,125 @@
+{
+  "last_updated_ist": "2026-06-11",
+  "canonical_title": "AION Indian Market Intelligence for Macro Event & Sector Impact Analysis",
+  "primary_description": "Macro-event and sector impact intelligence for Indian financial markets.",
+  "secondary_description": "Structured analysis of how policy, economic, weather, and geopolitical events affect Indian market sectors.",
+  "managed_api": {
+    "endpoint": "POST https://api.aiondashboard.site/v1/analyze",
+    "auth_env": "AION_API_KEY",
+    "auth_header": "X-API-Key"
+  },
+  "mcp_package": {
+    "package_name": "aion-indian-market-intelligence-mcp",
+    "version": "1.0.0",
+    "pypi_url": "https://pypi.org/project/aion-indian-market-intelligence-mcp/",
+    "run_command": "uvx aion-indian-market-intelligence-mcp",
+    "install_command": "pip install aion-indian-market-intelligence-mcp",
+    "console_entrypoint": "aion-indian-market-intelligence-mcp",
+    "default_transport": "stdio",
+    "tool_name": "analyze_news",
+    "public_output_key": "sector_vector",
+    "depends_on": "aion-indian-market-intelligence>=1.0.8",
+    "wrapper_only": true
+  },
+  "client_package": {
+    "package_name": "aion-indian-market-intelligence",
+    "published_version": "1.0.8",
+    "pypi_url": "https://pypi.org/project/aion-indian-market-intelligence/",
+    "role": "Hosted API client used by the MCP wrapper.",
+    "live_metadata_note": "Published client metadata may lag repository README changes until the next client package release; MCP marketplace copy should point users to aion-indian-market-intelligence-mcp."
+  },
+  "copy_guardrails": [
+    "Use the canonical title and descriptions exactly where marketplace fields allow.",
+    "Use aion-indian-market-intelligence-mcp as the PyPI distribution for MCP marketplaces.",
+    "Use uvx aion-indian-market-intelligence-mcp for direct MCP startup.",
+    "Require AION_API_KEY or an explicitly configured API key.",
+    "Return and document sector_vector as the canonical public output key.",
+    "Do not describe the MCP server as brokerage, execution, portfolio automation, or order routing.",
+    "Do not imply automated sector-position selection, price prediction, or investment advice.",
+    "Do not expose sector_impacts as a public replacement key.",
+    "Do not publish taxonomy, rules, dependency matrices, local inference runtime, model weights, or training artifacts."
+  ],
+  "source_files": [
+    "aion_mcp_package/",
+    "aion_mcp_package/README.md",
+    "aion_mcp_package/pyproject.toml",
+    "distribution/mcp/server.json",
+    "distribution/continue/README.md",
+    "distribution/continue/aion-indian-market-intelligence.yaml",
+    "distribution/continue/aion-indian-market-intelligence-uvx.yaml",
+    "docs/MCP_MARKETPLACE_MAINTENANCE.md",
+    "docs/mcp_marketplace_registry.json",
+    "publish_assets/aion-mcp-server/README.md",
+    "MCP_MARKETPLACE_LISTING.md",
+    "docs/API_SPEC.md",
+    "README.md"
+  ],
+  "marketplace_surfaces": [
+    {
+      "surface": "PyPI MCP package",
+      "url": "https://pypi.org/project/aion-indian-market-intelligence-mcp/",
+      "status": "published",
+      "last_verified_ist": "2026-06-11",
+      "source": "aion_mcp_package/",
+      "required_metadata": "Direct uvx package install; no local engine assets."
+    },
+    {
+      "surface": "PyPI client package",
+      "url": "https://pypi.org/project/aion-indian-market-intelligence/",
+      "status": "published-client-metadata-lags-repo",
+      "published_version": "1.0.8",
+      "last_verified_ist": "2026-06-11",
+      "source": "pypi_aion_indian_market_intelligence/",
+      "required_metadata": "Hosted API client only; MCP users should install the dedicated MCP wrapper."
+    },
+    {
+      "surface": "Standalone MCP GitHub repo",
+      "url": "https://github.com/AION-Analytics/aion-mcp-server",
+      "status": "published",
+      "source": "publish_assets/aion-mcp-server/",
+      "required_metadata": "README must point to aion-indian-market-intelligence-mcp and AION_API_KEY."
+    },
+    {
+      "surface": "MCP Market",
+      "url": "https://mcpmarket.com/server/aion-indian-market-intelligence",
+      "status": "listed",
+      "source": "Marketplace copy and standalone MCP repo metadata.",
+      "required_metadata": "Use dedicated PyPI MCP package and canonical sector_vector wording."
+    },
+    {
+      "surface": "HOL / Pulse MCP mirror",
+      "url": "https://hol.org/registry/agent/uaid%3Aaid%3A52jjV7XZ41rVLWu8EpjeEszE3YViz5uUtFGBDt9VmpSbk7YnF7P4SJu9btt2bB8zXz",
+      "status": "listed",
+      "source": "Pulse/MCP marketplace mirror metadata.",
+      "required_metadata": "Refresh after upstream MCP/Pulse metadata uses the dedicated MCP package."
+    },
+    {
+      "surface": "Glama",
+      "url": "https://glama.ai/mcp/servers/io.github.AION-Analytics/aion-indian-market-intelligence",
+      "status": "externally referenced",
+      "source": "Indexed marketplace metadata.",
+      "required_metadata": "Claim or refresh listing with canonical MCP package details."
+    },
+    {
+      "surface": "Official MCP registry manifest",
+      "url": "local:distribution/mcp/server.json",
+      "status": "prepared",
+      "source": "distribution/mcp/server.json",
+      "required_metadata": "Package identifier must be aion-indian-market-intelligence-mcp."
+    },
+    {
+      "surface": "Continue config",
+      "url": "local:distribution/continue/",
+      "status": "prepared",
+      "source": "distribution/continue/",
+      "required_metadata": "Use either installed aion-indian-market-intelligence-mcp entrypoint or direct uvx package."
+    },
+    {
+      "surface": "CuratedMCP",
+      "url": "https://www.curatedmcp.com/",
+      "status": "submit-after-refresh",
+      "source": "Canonical marketplace copy.",
+      "required_metadata": "Submit only after existing public listings use the dedicated MCP package."
+    }
+  ]
+}

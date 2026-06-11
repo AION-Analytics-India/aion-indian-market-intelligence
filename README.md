@@ -238,6 +238,8 @@ Enterprise: custom, GPU-dedicated. Contact via dashboard.
   - `https://huggingface.co/spaces/AION-Analytics/aion-indian-market-intelligence`
 - MCP marketplace maintenance register:
   - `docs/MCP_MARKETPLACE_MAINTENANCE.md`
+- MCP marketplace JSON register:
+  - `docs/mcp_marketplace_registry.json`
 
 ## Current Limits
 

@@ -5,9 +5,10 @@
 AION Indian Market Intelligence is an API-first market-intelligence service for
 macro event intelligence and sector impact analysis in Indian financial markets.
 
-The public package is a client and MCP wrapper. It does not include production
-model weights, private taxonomy files, calibration coefficients, backend API
-server code, or training scripts.
+The public Python client package calls the hosted API. The MCP package is a
+separate wrapper around that client for MCP-compatible runtimes. Neither public
+package includes production model weights, private taxonomy files, calibration
+coefficients, backend API server code, or training scripts.
 
 ## Python Client
 
@@ -86,11 +87,19 @@ Response shape:
 Console entrypoint:
 
 ```bash
+uvx aion-indian-market-intelligence-mcp
+```
+
+Installed entrypoint:
+
+```bash
+pip install aion-indian-market-intelligence-mcp
 aion-indian-market-intelligence-mcp --transport stdio
 ```
 
-Legacy console aliases may exist for compatibility, but the canonical public
-identity is `aion-indian-market-intelligence`.
+The canonical MCP package identity is
+`aion-indian-market-intelligence-mcp`. The canonical client package identity is
+`aion-indian-market-intelligence`.
 
 MCP tool:
 

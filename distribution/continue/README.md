@@ -13,12 +13,12 @@ Files:
   `aion-indian-market-intelligence-mcp`
 
 - `aion-indian-market-intelligence-uvx.yaml`:
-  Uses `uvx` to run the MCP server from PyPI without a manual package install.
+  Uses `uvx` to run the dedicated MCP package from PyPI without a manual package install.
 
 Recommended install path for the standard config:
 
 ```bash
-pip install aion-indian-market-intelligence
+pip install aion-indian-market-intelligence-mcp
 ```
 
 Then add the YAML to:
@@ -28,3 +28,7 @@ Then add the YAML to:
 ```
 
 Or publish the same YAML as a public Continue Hub config.
+
+The MCP package is a hosted API wrapper. It requires `AION_API_KEY` and does
+not bundle taxonomy files, rule files, model weights, or a local inference
+engine.
