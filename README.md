@@ -2,36 +2,122 @@
 
 # AION Indian Market Intelligence for Macro Event & Sector Impact Analysis
 
-Indian Market Intelligence for Macro Event & Sector Impact Analysis.
+**An API that turns an Indian financial headline into a signed sector vector —
+which sectors are exposed, in which direction, and who is affected.**
 
-Indian Market Intelligence for Macro Event & Sector Impact Analysis is the
-single public identity for this product. It is an API for Indian SaaS
-developers, professional coders, LLM tools, dashboards, and analyst workflows
-that need macro event intelligence and sector impact analysis from Indian
-financial headlines.
+A sentiment score says `negative 0.82`. Negative *for whom?* One event moves
+different sectors in opposite directions, and a single number has to pick one and
+discard the rest.
 
-AION Indian Market Intelligence for Macro Event & Sector Impact Analysis
-converts raw Indian financial headlines into market impact ontology output. It
-answers: what happened, which sectors are exposed, which stakeholders are
-affected, and which macro effects are in play. It does not tell you what to
-trade.
+## What it does
 
-## Install
+```mermaid
+flowchart LR
+    A["Your headline feed<br/>NSE circulars · news · RSS"] --> B["analyze(headline)"]
+    B --> C["AION IMI<br/>sector_vector + context"]
+    C --> D["Your LLM · agent · dashboard"]
+    D --> E["Prioritised actions<br/>risk flags · alerts · research"]
+```
+
+## Quickstart in 60 seconds
 
 ```bash
 pip install aion-indian-market-intelligence
-```
-
-## API Key Setup
-
-```bash
 export AION_API_KEY="<your_api_key>"
 ```
 
-## Canonical Imports
+```python
+from aion_indian_market_intelligence import analyze
+
+intel = analyze("RBI hikes repo rate by 25 bps")
+print(intel["sector_vector"])
+# {'Information Technology': 0.18, 'Realty': -0.52,
+#  'Financial Services': -0.31, 'Automobile and Auto Components': -0.26}
+```
+
+Get a key at
+[dashboard.aiondashboard.site/access/register](https://dashboard.aiondashboard.site/access/register).
+The free tier is 1,000 requests a month.
+
+## What this is NOT
+
+> - **Not investment advice.** It describes exposure; it does not tell you what to do about it.
+> - **Not a trading signal.** There is no entry, exit, target or position size anywhere in the output.
+> - **Not a downloadable model.** Inference runs through the hosted API. This repository contains no weights, coefficients, taxonomy files or server code.
+
+## Before / After
+
+The same headline, through a polarity model and through this one:
+
+> Unseasonal rainfall and hailstorm hit apple orchards in Himachal Pradesh in April
+
+| | Polarity-only NLP | AION IMI |
+| --- | --- | --- |
+| **Output** | `negative` | `event: rain_apple_damage` |
+| **Which sectors** | — | Agriculture & Horticulture, Transportation, Consumer Services under pressure |
+| **Flip side** | — | storage-linked and substitute supply chains may benefit |
+| **Who is affected** | — | producer losses · policymaker inflation watch · investor attention on second-order effects |
+| **Actionable by a system** | not really | yes — it names sectors you can join to your own data |
+
+Market implication: agriculture-linked exposure under pressure, logistics
+bottlenecks possible, substitute supply chains may benefit.
+
+## Use Cases
+
+Three patterns, all of which people are already building. Longer write-ups in
+[the DEV.to article](https://dev.to/aion-analytics-india/aion-indian-market-intelligence-the-india-contextual-intelligence-layer-for-your-llms-and-saas-4eam).
+
+### 1. LLM / RAG augmentation
+
+*For AI engineers.* Store the sector vector next to the headline in your vector
+store. When the LLM retrieves the document it also retrieves India-specific
+impact context, so it reasons about the event rather than paraphrasing it.
+
+```python
+intel = analyze(headline)
+enriched = (
+    f"Headline: {headline}\n"
+    f"Sector impact: {intel['sector_vector']}\n"
+    f"Stakeholders: {intel.get('stakeholder_views')}"
+)
+# embed `enriched`, or store the vector as metadata alongside the headline
+```
+
+### 2. SaaS sales & CRM intelligence
+
+*For B2B SaaS founders.* Map a macro event onto your own customer list by sector.
+Instead of "this is negative", your system knows which accounts sit in the
+affected sectors, in which direction, and how hard.
+
+```mermaid
+flowchart TD
+    E["Policy · weather · commodity shock"] --> I["analyze() → sector impact + severity"]
+    I --> C["Your CRM / lead list, by sector"]
+    C --> L["LLM with India-specific causal context on YOUR accounts"]
+    L --> A["Prioritised leads · risk flags · personalised outreach"]
+```
+
+```python
+intel = analyze(event_headline)
+for account in crm.accounts:
+    exposure = intel["sector_vector"].get(account.sector, 0.0)
+    if abs(exposure) > 0.25:
+        account.flag(f"{event_headline} → {exposure:+.2f}")
+```
+
+### 3. Research & analyst workflows
+
+*For analysts and journalists.* Batch a feed of headlines into structured impact
+objects, then review the ones that matter instead of reading everything.
 
 ```python
 from aion_indian_market_intelligence import analyze
+
+for item in my_news_feed:
+    intel = analyze(item["headline"])
+    item["imi_sector_vector"] = intel["sector_vector"]
+    item["imi_top_positive"] = intel["top_positive_sectors"]
+    # store, sort by magnitude, or route for human review
 ```
 
 ## API Contract
@@ -54,6 +140,12 @@ resp = requests.post(
 )
 resp.raise_for_status()
 print(resp.json()["sector_vector"])
+```
+
+Canonical import:
+
+```python
+from aion_indian_market_intelligence import analyze
 ```
 
 ## Output Contract
@@ -121,23 +213,6 @@ Example view:
 This is macroeconomic event API output for Indian Market Intelligence for Macro
 Event & Sector Impact Analysis. It is structured interpretation, not advice.
 
-## Before / After
-
-Headline:
-> Unseasonal rainfall and hailstorm hit apple orchards in Himachal Pradesh in April
-
-Typical polarity-only output:
-- negative
-
-AION Indian Market Intelligence for Macro Event & Sector Impact Analysis output:
-- event / rule: `rain_apple_damage`
-- likely losers: `Agriculture & Horticulture`, `Transportation`, `Consumer Services`
-- potential second-order beneficiaries: storage-linked or substitute supply chains
-- stakeholder view: producer losses, policymaker inflation watch, investor attention on downstream second-order effects
-
-Market implication: agriculture-linked exposure under pressure, logistics
-bottlenecks possible, substitute supply chains may benefit.
-
 ## What AION Indian Market Intelligence for Macro Event & Sector Impact Analysis Does
 
 - provides Indian macro event intelligence from financial headlines
@@ -171,30 +246,25 @@ AION Indian Market Intelligence for Macro Event & Sector Impact Analysis tells y
 - whether there is a flip side
 - what the evidence layer suggests for further human or system review
 
-## Canonical Vocabulary
+## Canonical vocabulary
 
-Public docs, model cards, PyPI copy, MCP copy, and dashboard pages use
-`Indian Market Intelligence for Macro Event & Sector Impact Analysis` as the
-single identity phrase. Supporting vocabulary is maintained in
-`docs/CANONICAL_VOCABULARY.yml`.
+`Indian Market Intelligence for Macro Event & Sector Impact Analysis` is the
+single public identity phrase, used across docs, model cards, PyPI, MCP copy and
+dashboard pages.
 
-Primary phrases include:
+<details>
+<summary>Supporting vocabulary (maintained for search and retrieval indexing)</summary>
 
-- macro event intelligence
-- sector impact analysis
-- sector propagation engine
-- financial causality mapping
-- market impact ontology
-- event-to-sector reasoning
-- macroeconomic event API
-- sector exposure intelligence
-- policy impact mapping
-- event-driven financial inference
-- financial event ontology
-- sectoral impact engine
+macro event intelligence · sector impact analysis · sector propagation engine ·
+financial causality mapping · market impact ontology · event-to-sector reasoning ·
+macroeconomic event API · sector exposure intelligence · policy impact mapping ·
+event-driven financial inference · financial event ontology · sectoral impact engine
 
 These phrases are intentional for human search, PyPI discovery, Hugging Face
-indexing, GitHub topics, MCP registry copy, and LLM retrieval embeddings.
+indexing, GitHub topics, MCP registry copy and LLM retrieval embeddings. The
+canonical list lives in `docs/CANONICAL_VOCABULARY.yml`.
+
+</details>
 
 ## Pricing & Tiers (Draft — Current as of May 2026)
 
@@ -210,6 +280,15 @@ All tiers require an API key. Sign up at
 
 Enterprise: custom, GPU-dedicated. Contact via dashboard.
 
+## Current Limits
+
+- production usage is quota-controlled at the API layer
+- weather and crop coverage still depends on explicit cues in the headline
+- sparse headlines can remain ambiguous
+- pricing and latency tiers above are current commercial positioning and may evolve
+- this repository does not contain model weights, production coefficients, private taxonomy files, training scripts, or backend API server code
+- the PyPI package provides client tooling only. Production inference requires the hosted API.
+
 ## Access And Links
 
 - API gateway:
@@ -223,21 +302,12 @@ Enterprise: custom, GPU-dedicated. Contact via dashboard.
 - PyPI package:
   - `https://pypi.org/project/aion-indian-market-intelligence/`
 - GitHub repository:
-  - `https://github.com/AION-Analytics/aion-indian-market-intelligence`
+  - `https://github.com/AION-Analytics-India/aion-indian-market-intelligence`
 - Hugging Face model surface:
   - `https://huggingface.co/AION-Analytics/aion-indian-market-intelligence`
 - Hugging Face demo Space:
   - `https://huggingface.co/spaces/AION-Analytics/aion-indian-market-intelligence`
 - MCP server repo:
-  - `https://github.com/AION-Analytics/aion-mcp-server`
+  - `https://github.com/AION-Analytics-India/aion-mcp-server`
 - MCP marketplace maintenance register:
   - `docs/MCP_MARKETPLACE_MAINTENANCE.md`
-
-## Current Limits
-
-- production usage is quota-controlled at the API layer
-- weather and crop coverage still depends on explicit cues in the headline
-- sparse headlines can remain ambiguous
-- pricing and latency tiers above are current commercial positioning and may evolve
-- this repository does not contain model weights, production coefficients, private taxonomy files, training scripts, or backend API server code
-- the PyPI package provides client tooling only. Production inference requires the hosted API.
