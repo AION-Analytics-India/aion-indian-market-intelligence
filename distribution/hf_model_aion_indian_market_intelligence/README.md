@@ -2,7 +2,8 @@
 language:
   - en
   - hi
-license: agpl-3.0
+license: other
+license_name: proprietary-hosted-api-only
 tags:
   - finance
   - indian-markets
@@ -18,6 +19,8 @@ tags:
 # AION Indian Market Intelligence
 
 AION Indian Market Intelligence provides macro-event and sector impact intelligence for Indian financial markets. It converts Indian financial headlines into structured JSON centered on sector incidence vectors.
+
+**License:** Proprietary — hosted API access only. No model weights distributed. Not open-source.
 
 The public model card describes the managed intelligence surface. It does not distribute model weights, production coefficients, private taxonomy files, or runtime calibration logic.
 

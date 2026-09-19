@@ -6,7 +6,9 @@ Macro-event and sector impact intelligence for Indian financial markets.
 
 [![PyPI version](https://img.shields.io/pypi/v/aion-indian-market-intelligence)](https://pypi.org/project/aion-indian-market-intelligence/)
 [![Python](https://img.shields.io/pypi/pyversions/aion-indian-market-intelligence)](https://pypi.org/project/aion-indian-market-intelligence/)
-[![License: AGPL-3.0](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+![License: Proprietary](https://img.shields.io/badge/License-Proprietary-lightgrey.svg)
+
+**License:** Proprietary — hosted API access only. No model weights distributed. Not open-source.
 [![MCP Compatible](https://img.shields.io/badge/MCP-Compatible-green)](https://modelcontextprotocol.io)
 
 ## What it does

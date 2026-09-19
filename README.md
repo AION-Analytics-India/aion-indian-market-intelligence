@@ -311,3 +311,8 @@ Enterprise: custom, GPU-dedicated. Contact via dashboard.
   - `https://github.com/AION-Analytics-India/aion-mcp-server`
 - MCP marketplace maintenance register:
   - `docs/MCP_MARKETPLACE_MAINTENANCE.md`
+
+## License
+
+- `packages/aion-newsimpact`, `packages/aion-sectormap` and `packages/aion-volweight` are open source under Apache-2.0; see the `LICENSE` file in each package.
+- Everything else in this repository (the Indian Market Intelligence client, MCP wrapper, model card and demo) is **proprietary — hosted API access only. No model weights are distributed. Not open-source.**
