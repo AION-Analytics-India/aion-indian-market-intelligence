@@ -73,8 +73,7 @@ Response shape:
     "positive_bias": [],
     "negative_bias": []
   },
-  "stakeholder_views": {},
-  "raw_assignment": {}
+  "stakeholder_views": {}
 }
 ```
 
