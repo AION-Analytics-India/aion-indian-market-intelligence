@@ -155,7 +155,6 @@ Observed top-level output keys:
 ```json
 {
   "headline": "string",
-  "event": "string|null",
   "confidence": "float",
   "vix_regime": "string",
   "sector_vector": {},
@@ -186,7 +185,6 @@ Example view:
 
 ```json
 {
-  "event": "repo_rate_hike",
   "sector_vector": {
     "Information Technology": 0.18,
     "Realty": -0.52,

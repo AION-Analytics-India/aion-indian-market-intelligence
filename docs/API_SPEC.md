@@ -63,7 +63,6 @@ Response shape:
 ```json
 {
   "headline": "string",
-  "event": "string|null",
   "confidence": "float",
   "vix_regime": "string|null",
   "sector_vector": {},
