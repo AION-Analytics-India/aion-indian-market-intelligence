@@ -1,4 +1,4 @@
-[![Version](https://img.shields.io/badge/version-1.0.5-blue)](https://pypi.org/project/aion-indian-market-intelligence/)
+[![Version](https://img.shields.io/pypi/v/aion-indian-market-intelligence)](https://pypi.org/project/aion-indian-market-intelligence/)
 
 # AION Indian Market Intelligence for Macro Event & Sector Impact Analysis
 
@@ -35,9 +35,7 @@ print(intel["sector_vector"])
 #  'Financial Services': -0.31, 'Automobile and Auto Components': -0.26}
 ```
 
-Get a key at
-[dashboard.aiondashboard.site/access/register](https://dashboard.aiondashboard.site/access/register).
-The free tier is 1,000 requests a month.
+Get a key through the [current API catalogue](https://aionanalytics.in/apis), which links to registration and lists current plans, quotas and availability.
 
 ## What this is NOT
 
@@ -263,26 +261,16 @@ canonical list lives in `docs/CANONICAL_VOCABULARY.yml`.
 
 </details>
 
-## Pricing & Tiers (Draft — Current as of May 2026)
+## Plans and access
 
-All tiers require an API key. Sign up at
-`https://dashboard.aiondashboard.site/access/register`
-
-| Tier | Requests/month | Latency |
-|---|---:|---|
-| Free | 1,000 | Shared |
-| Builder | 15,000 | Shared |
-| Pro | 75,000 | Priority |
-| Power | 250,000 | Dedicated |
-
-Enterprise: custom, GPU-dedicated. Contact via dashboard.
+All hosted analysis requires an API key. See the [current API catalogue](https://aionanalytics.in/apis) for plans, quotas and registration.
 
 ## Current Limits
 
 - production usage is quota-controlled at the API layer
 - weather and crop coverage still depends on explicit cues in the headline
 - sparse headlines can remain ambiguous
-- pricing and latency tiers above are current commercial positioning and may evolve
+- current plans and quotas are maintained in the canonical API catalogue
 - this repository does not contain model weights, production coefficients, private taxonomy files, training scripts, or backend API server code
 - the PyPI package provides client tooling only. Production inference requires the hosted API.
 
