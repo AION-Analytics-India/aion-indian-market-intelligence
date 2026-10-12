@@ -9,3 +9,16 @@ Every call returns structured JSON for downstream dashboards, copilots, analyst 
 The package ships an MCP-compatible Indian market intelligence server, so Claude and other MCP clients can request sector impact analysis through the managed API. Install with `pip install aion-indian-market-intelligence`, then call `analyze()` or run the bundled MCP server.
 
 Built for the NSE and BSE by AION Analytics.
+
+## Client installation and import
+
+```bash
+python -m pip install aion-indian-market-intelligence
+```
+
+```python
+from aion_indian_market_intelligence import analyze
+assert callable(analyze)
+```
+
+This import check does not call the hosted API. Inference requires an AION API key; current access terms and API examples are at https://aionanalytics.in/apis and https://aionanalytics.in/docs/api-reference.txt. The client does not distribute the proprietary inference engine or model weights.
