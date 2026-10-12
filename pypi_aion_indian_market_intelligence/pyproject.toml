@@ -5,13 +5,11 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "aion-indian-market-intelligence"
 version = "1.0.6"
-description = "Macro-event and sector impact intelligence for Indian financial markets. Structured analysis of how policy, economic, weather, and geopolitical events affect Indian market sectors."
+description = "Hosted Indian market-intelligence API client for structured financial-event and sector-impact analysis."
 readme = "PYPI_DESCRIPTION.md"
 requires-python = ">=3.10"
 license = { text = "Proprietary" }
-authors = [
-  { name = "AION Analytics" }
-]
+authors = [{ name = "AION Analytics", email = "contact@aionanalytics.in" }]
 dependencies = [
   "requests>=2.31",
   "mcp>=1.27"
@@ -47,9 +45,13 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/AION-Analytics/aion-indian-market-intelligence"
-Documentation = "https://dashboard.aiondashboard.site/models/indian-market-intelligence"
-Issues = "https://github.com/AION-Analytics/aion-indian-market-intelligence/issues"
+"Homepage" = "https://aionanalytics.in/models/indian-market-intelligence"
+"Documentation" = "https://aionanalytics.in/docs/api-reference.txt"
+"Source" = "https://github.com/AION-Analytics-India/aion-indian-market-intelligence"
+"Issues" = "https://github.com/AION-Analytics-India/aion-indian-market-intelligence/issues"
+"API access" = "https://aionanalytics.in/apis"
+"Changelog" = "https://github.com/AION-Analytics-India/aion-indian-market-intelligence/blob/main/CHANGELOG.md"
+
 
 [project.scripts]
 aion-indian-market-intelligence-mcp = "aion_indian_market_intelligence.mcp_server:main"
