@@ -277,11 +277,11 @@ All hosted analysis requires an API key. See the [current API catalogue](https:/
 ## Access And Links
 
 - API gateway:
-  - `https://dashboard.aiondashboard.site/systems/api-gateway`
+  - `https://aionanalytics.in/systems/api-gateway`
 - Website model page:
-  - `https://dashboard.aiondashboard.site/models/indian-market-intelligence`
+  - `https://aionanalytics.in/models/indian-market-intelligence`
 - API key registration:
-  - `https://dashboard.aiondashboard.site/access/register`
+  - `https://aionanalytics.in/access/register`
 - Managed API:
   - `https://api.aiondashboard.site/v1/analyze`
 - PyPI package:
