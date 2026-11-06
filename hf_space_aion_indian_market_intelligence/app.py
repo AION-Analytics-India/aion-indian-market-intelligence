@@ -15,11 +15,11 @@ import gradio as gr
 import requests
 
 
-API_BASE_URL = os.getenv("AION_API_BASE_URL", "https://api.aiondashboard.site").rstrip("/")
+API_BASE_URL = os.getenv("AION_API_BASE_URL", "https://api.aionanalytics.in").rstrip("/")
 SPACE_API_KEY = os.getenv("AION_SPACE_API_KEY", "").strip()
 NULL_EVENT_LOG_URL = os.getenv("AION_NULL_EVENT_LOG_URL", "").strip()
 NULL_EVENT_LOG_KEY = os.getenv("AION_NULL_EVENT_LOG_KEY", "").strip()
-ACCESS_PAGE_URL = "https://dashboard.aiondashboard.site/access/register"
+ACCESS_PAGE_URL = "https://aionanalytics.in/apis"
 RATE_LIMIT = int(os.getenv("AION_SPACE_DEMO_RATE_LIMIT", "3"))
 RATE_WINDOW = int(os.getenv("AION_SPACE_DEMO_RATE_WINDOW_SECS", "86400"))
 DEMO_USAGE_DB = os.getenv("AION_SPACE_USAGE_DB", "hf_demo_usage.db").strip()
