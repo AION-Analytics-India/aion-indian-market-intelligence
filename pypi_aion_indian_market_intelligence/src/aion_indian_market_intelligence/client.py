@@ -10,7 +10,7 @@ import requests
 DEFAULT_BASE_URL = (
     os.getenv("AION_API_BASE_URL")
     or os.getenv("AION_BASE_URL")
-    or "https://api.aiondashboard.site"
+    or "https://api.aionanalytics.in"
 ).rstrip("/")
 
 
