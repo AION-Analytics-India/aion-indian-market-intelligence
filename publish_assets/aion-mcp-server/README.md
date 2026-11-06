@@ -19,7 +19,7 @@ Use it as an MCP-compatible Indian market intelligence server inside agent and I
 # Installation
 
 ```bash
-pip install aion-indian-market-intelligence mcp
+pip install aion-indian-market-intelligence-mcp
 ```
 
 # Usage
@@ -57,5 +57,5 @@ Analyze this Indian financial headline using AION Indian Market Intelligence and
 - Model surface: [AION Indian Market Intelligence](https://huggingface.co/AION-Analytics/aion-indian-market-intelligence)
 - PyPI: [aion-indian-market-intelligence](https://pypi.org/project/aion-indian-market-intelligence/)
 - Live demo: [HuggingFace Space](https://huggingface.co/spaces/AION-Analytics/aion-indian-market-intelligence)
-- API access page: [dashboard.aiondashboard.site/access/register](https://dashboard.aiondashboard.site/access/register)
-- Documentation and MCP integration: [dashboard.aiondashboard.site/models/indian-market-intelligence](https://dashboard.aiondashboard.site/models/indian-market-intelligence)
+- API access page: [AION API plans and registration](https://aionanalytics.in/apis)
+- Documentation and MCP integration: [Indian Market Intelligence product page](https://aionanalytics.in/models/indian-market-intelligence)
