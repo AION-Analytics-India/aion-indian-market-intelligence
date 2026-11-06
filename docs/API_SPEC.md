@@ -37,7 +37,7 @@ print(result["sector_vector"])
 Endpoint:
 
 ```text
-POST https://api.aiondashboard.site/v1/analyze
+POST https://api.aionanalytics.in/v1/analyze
 ```
 
 Headers:

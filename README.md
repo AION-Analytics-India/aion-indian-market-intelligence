@@ -122,7 +122,7 @@ for item in my_news_feed:
 
 Production usage flows through the managed AION API:
 
-- `POST https://api.aiondashboard.site/v1/analyze`
+- `POST https://api.aionanalytics.in/v1/analyze`
 - header:
   - `X-API-Key: <key>`
 
@@ -131,7 +131,7 @@ import requests
 
 headers = {"X-API-Key": "YOUR_API_KEY"}
 resp = requests.post(
-    "https://api.aiondashboard.site/v1/analyze",
+    "https://api.aionanalytics.in/v1/analyze",
     headers=headers,
     json={"headline": "RBI hikes repo rate by 25 bps"},
     timeout=30,
@@ -277,13 +277,13 @@ All hosted analysis requires an API key. See the [current API catalogue](https:/
 ## Access And Links
 
 - API gateway:
-  - `https://dashboard.aiondashboard.site/systems/api-gateway`
+  - `https://aionanalytics.in/systems/api-gateway`
 - Website model page:
-  - `https://dashboard.aiondashboard.site/models/indian-market-intelligence`
-- API key registration:
-  - `https://dashboard.aiondashboard.site/access/register`
+  - `https://aionanalytics.in/models/indian-market-intelligence`
+- API key plans and registration (verified email and passkey; `/access/register` is a separate referral-code route):
+  - `https://aionanalytics.in/apis`
 - Managed API:
-  - `https://api.aiondashboard.site/v1/analyze`
+  - `https://api.aionanalytics.in/v1/analyze`
 - PyPI package:
   - `https://pypi.org/project/aion-indian-market-intelligence/`
 - GitHub repository:
