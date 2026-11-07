@@ -93,12 +93,13 @@ from aion_indian_market_intelligence import analyze
 result = analyze(
     "RBI raises the policy repo rate",
     published_at="2026-06-05T09:00:00+05:30",
-    body="Optional source text supplied by your application.",
 )
 print(result["sector_vector"])
 ```
 
 The Python package sends requests to the managed API. It does not run inference locally.
+
+**Client version 1.0.11:** The published Python `analyze()` interface accepts `headline` and optional `published_at`, but **not** `body`. To submit optional article-body text, use the documented REST API directly when supported by your entitlement. Do not pass `body=` to the Python client until a compatible client version is released.
 
 ### MCP wrapper
 
