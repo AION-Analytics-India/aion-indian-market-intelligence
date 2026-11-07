@@ -1,303 +1,135 @@
-[![Version](https://img.shields.io/pypi/v/aion-indian-market-intelligence)](https://pypi.org/project/aion-indian-market-intelligence/)
+# AION Indian Market Intelligence (IMI)
 
-# AION Indian Market Intelligence for Macro Event & Sector Impact Analysis
+**Indian market intelligence API for caller supplied financial and policy events.** IMI adds structured context to a headline: how an event may relate to Indian market sectors and stakeholder groups. It is a hosted API product; this repository contains client and integration material, not the inference model or its weights.
 
-**An API that turns an Indian financial headline into a signed sector vector —
-which sectors are exposed, in which direction, and who is affected.**
+## What IMI does
 
-A sentiment score says `negative 0.82`. Negative *for whom?* One event moves
-different sectors in opposite directions, and a single number has to pick one and
-discard the rest.
+A polarity score can say that a headline reads positive or negative, but that single label does not show which sectors may be affected in different ways or which stakeholder perspectives matter. IMI accepts one caller supplied headline, with optional publication time and article body, and returns structured Indian market context, including a signed `sector_vector`, confidence, market context, sector summaries and stakeholder views.
 
-## What it does
+The caller supplies the news text. The API does not ingest news feeds, fetch RBI or SEBI publications, parse PDFs or filings, or monitor markets continuously. Policy and regulatory examples are supported as caller supplied text; coverage depends on the input and is not guaranteed.
 
-```mermaid
-flowchart LR
-    A["Your headline feed<br/>NSE circulars · news · RSS"] --> B["analyze(headline)"]
-    B --> C["AION IMI<br/>sector_vector + context"]
-    C --> D["Your LLM · agent · dashboard"]
-    D --> E["Prioritised actions<br/>risk flags · alerts · research"]
+## Who can use it
+
+- **AI and application developers** can add returned context to an LLM prompt or their own retrieval augmented generation (RAG) records.
+- **SaaS and CRM teams** can join sector outputs to their own customer or account classifications. IMI does not connect to or enrich a CRM by itself.
+- **Analysts and institutional teams** can process headlines from their own sources and route selected results to a review or reporting workflow.
+- **MCP-compatible agents** can call the hosted API through the published MCP wrapper when their plan and API key allow it.
+
+These are integration patterns built by the consumer around IMI's response. They are not bundled feed ingestion, CRM, RAG, alerting, reporting or risk-management products.
+
+## Practical integration patterns
+
+### LLM or RAG enrichment
+
+Store the returned `sector_vector` and stakeholder context with the original item in your own retrieval system. When that item is retrieved, your application can supply the structured context to its LLM. IMI does not provide the vector database or retrieval layer.
+
+### Policy and institutional monitoring
+
+Send a headline and, where available, its article body from your own RBI, SEBI, government, company or news source. Your application can review the returned sector and stakeholder context alongside the original source. The API does not fetch or authenticate those publications.
+
+### Sector aware SaaS and CRM workflows
+
+Your application may compare returned sector values with its own customer or supplier classifications to prioritize human review. Any thresholds, account mapping and resulting actions are your application's logic; IMI does not supply a CRM connector or make business decisions.
+
+### Research queues and alerts
+
+Process your own headlines one request at a time, then sort or route results using the returned fields. The API does not provide a feed, batch job, scheduled alert service or research report.
+
+### MCP agent workflows
+
+The MCP package exposes `analyze_news` over the same hosted API. It is an API wrapper for MCP clients, not a model running locally or inside Hugging Face.
+
+## API input and output
+
+The managed endpoint accepts one headline, optional `published_at`, and optional `body` per request. The article body can add context when the headline is ambiguous. It does not accept a feed, PDF, filing, table or multi-event batch through this endpoint.
+
+The documented public response includes:
+
+- `headline` — the submitted headline.
+- `confidence` — the system's classification confidence; it is not a probability of a market outcome.
+- `macro_signal` and `vix_regime` — market-context fields when returned.
+- `sector_vector` — signed sector values; this is the canonical sector-impact field.
+- `top_positive_sectors` and `top_negative_sectors` — compact summaries when returned.
+- `stakeholder_views` — structured stakeholder perspectives when returned.
+- `cultural_context` — a plain-language indicator and explanation when a supported cultural or sovereign context applies.
+- Internal assignment identifiers and execution-oriented fields are removed from the public response. Ignore unrecognized fields rather than depending on them.
+
+API keys are model and plan scoped and require a verified email and server-verified passkey. The free API plan is available once per verified user/account and includes JSON REST access with `sector_vector` and `stakeholder_views`: 10 successful requests per rolling 30 days, with a maximum of 10 in any rolling 24 hours. Free key issuance is also limited by device and network. Other plan quotas and integration entitlements differ; consult the [current API catalogue](https://aionanalytics.in/apis) for current terms.
+
+The website demo key is a separate browser-demo allowance, not an API key or a second free API plan. It is issued once per email and allows up to 3 IMI analyses per browser/device pass and 30 per network in a rolling 7 days. An optional passkey raises the demo allowance to 10 analyses per passkey. Passkey verification happens on the visitor's device; AION does not receive biometric data. The demo key does not authorize calls to the production API. See the [website demo access page](https://aionanalytics.in/demo/key) for current access terms.
+
+## Integration options
+
+### REST API
+
+```text
+POST https://api.aionanalytics.in/v1/analyze
+X-API-Key: <your API key>
+Content-Type: application/json
 ```
 
-## Quickstart in 60 seconds
+```json
+{
+  "headline": "RBI raises the policy repo rate",
+  "published_at": "2026-06-05T09:00:00+05:30",
+  "body": "Optional source text supplied by your application."
+}
+```
+
+`published_at` and `body` are optional. Keep API keys on your server; do not embed them in a browser or public Space.
+
+### Python client
+
+Install the proprietary hosted API client:
 
 ```bash
 pip install aion-indian-market-intelligence
-export AION_API_KEY="<your_api_key>"
+export AION_API_KEY="<your API key>"
 ```
 
 ```python
 from aion_indian_market_intelligence import analyze
 
-intel = analyze("RBI hikes repo rate by 25 bps")
-print(intel["sector_vector"])
-# {'Information Technology': 0.18, 'Realty': -0.52,
-#  'Financial Services': -0.31, 'Automobile and Auto Components': -0.26}
-```
-
-Get a key through the [current API catalogue](https://aionanalytics.in/apis), which links to registration and lists current plans, quotas and availability.
-
-## What this is NOT
-
-> - **Not investment advice.** It describes exposure; it does not tell you what to do about it.
-> - **Not a trading signal.** There is no entry, exit, target or position size anywhere in the output.
-> - **Not a downloadable model.** Inference runs through the hosted API. This repository contains no weights, coefficients, taxonomy files or server code.
-
-## Before / After
-
-The same headline, through a polarity model and through this one:
-
-> Unseasonal rainfall and hailstorm hit apple orchards in Himachal Pradesh in April
-
-| | Polarity-only NLP | AION IMI |
-| --- | --- | --- |
-| **Output** | `negative` | `event: rain_apple_damage` |
-| **Which sectors** | — | Agriculture & Horticulture, Transportation, Consumer Services under pressure |
-| **Flip side** | — | storage-linked and substitute supply chains may benefit |
-| **Who is affected** | — | producer losses · policymaker inflation watch · investor attention on second-order effects |
-| **Actionable by a system** | not really | yes — it names sectors you can join to your own data |
-
-Market implication: agriculture-linked exposure under pressure, logistics
-bottlenecks possible, substitute supply chains may benefit.
-
-## Use Cases
-
-Three patterns, all of which people are already building. Longer write-ups in
-[the DEV.to article](https://dev.to/aion-analytics-india/aion-indian-market-intelligence-the-india-contextual-intelligence-layer-for-your-llms-and-saas-4eam).
-
-### 1. LLM / RAG augmentation
-
-*For AI engineers.* Store the sector vector next to the headline in your vector
-store. When the LLM retrieves the document it also retrieves India-specific
-impact context, so it reasons about the event rather than paraphrasing it.
-
-```python
-intel = analyze(headline)
-enriched = (
-    f"Headline: {headline}\n"
-    f"Sector impact: {intel['sector_vector']}\n"
-    f"Stakeholders: {intel.get('stakeholder_views')}"
+result = analyze(
+    "RBI raises the policy repo rate",
+    published_at="2026-06-05T09:00:00+05:30",
+    body="Optional source text supplied by your application.",
 )
-# embed `enriched`, or store the vector as metadata alongside the headline
+print(result["sector_vector"])
 ```
 
-### 2. SaaS sales & CRM intelligence
+The Python package sends requests to the managed API. It does not run inference locally.
 
-*For B2B SaaS founders.* Map a macro event onto your own customer list by sector.
-Instead of "this is negative", your system knows which accounts sit in the
-affected sectors, in which direction, and how hard.
+### MCP wrapper
 
-```mermaid
-flowchart TD
-    E["Policy · weather · commodity shock"] --> I["analyze() → sector impact + severity"]
-    I --> C["Your CRM / lead list, by sector"]
-    C --> L["LLM with India-specific causal context on YOUR accounts"]
-    L --> A["Prioritised leads · risk flags · personalised outreach"]
+```bash
+uvx aion-indian-market-intelligence-mcp
 ```
 
-```python
-intel = analyze(event_headline)
-for account in crm.accounts:
-    exposure = intel["sector_vector"].get(account.sector, 0.0)
-    if abs(exposure) > 0.25:
-        account.flag(f"{event_headline} → {exposure:+.2f}")
-```
+Configure `AION_API_KEY` in the MCP host's server-side environment. The MCP wrapper calls the same hosted API through the Python client; REST and Python clients expose the documented public response. MCP client behavior and available plan entitlements are described in the [MCP package documentation](https://github.com/AION-Analytics-India/aion-mcp-server).
 
-### 3. Research & analyst workflows
+## Limitations and access
 
-*For analysts and journalists.* Batch a feed of headlines into structured impact
-objects, then review the ones that matter instead of reading everything.
+- IMI interprets text supplied by the caller. It does not provide source feeds or verify the submitted source.
+- One request analyzes one headline and optional body. Feed ingestion, continuous monitoring, PDF or filing extraction, and batch processing belong to your application.
+- Event coverage and classification can be incomplete or uncertain. Sparse, ambiguous or unsupported inputs may produce limited context or no useful sector signal.
+- Impact values are indicative context, not statistically calibrated forecasts. Confidence does not guarantee correctness or predict market movement.
+- The product is information infrastructure, not investment advice, a trading signal, a buy/sell/hold recommendation, or an execution service. It does not connect to brokers or place orders.
+- Hosted API access requires an API key and is quota and plan controlled. Current plan requirements and limits are listed at [aionanalytics.in/apis](https://aionanalytics.in/apis).
+- The hosted model and its weights are proprietary and are not distributed. The Python client is proprietary hosted API software. The MCP wrapper has its own license; see its repository for the current license terms.
 
-```python
-from aion_indian_market_intelligence import analyze
+## Links
 
-for item in my_news_feed:
-    intel = analyze(item["headline"])
-    item["imi_sector_vector"] = intel["sector_vector"]
-    item["imi_top_positive"] = intel["top_positive_sectors"]
-    # store, sort by magnitude, or route for human review
-```
+- [AION IMI product page](https://aionanalytics.in/models/indian-market-intelligence)
+- [API catalogue and access](https://aionanalytics.in/apis)
+- [API reference](https://aionanalytics.in/docs/api-reference.txt)
+- [Python client on PyPI](https://pypi.org/project/aion-indian-market-intelligence/)
+- [MCP wrapper on PyPI](https://pypi.org/project/aion-indian-market-intelligence-mcp/)
+- [MCP server source](https://github.com/AION-Analytics-India/aion-mcp-server)
+- [Hugging Face model card](https://huggingface.co/aion-analytics-india/aion-indian-market-intelligence)
+- [Static Hugging Face Space](https://huggingface.co/spaces/aion-analytics-india/aion-indian-market-intelligence)
+- [AION Analytics Private Limited](https://aionanalytics.in)
 
-## API Contract
+## Licensing
 
-Production usage flows through the managed AION API:
-
-- `POST https://api.aionanalytics.in/v1/analyze`
-- header:
-  - `X-API-Key: <key>`
-
-```python
-import requests
-
-headers = {"X-API-Key": "YOUR_API_KEY"}
-resp = requests.post(
-    "https://api.aionanalytics.in/v1/analyze",
-    headers=headers,
-    json={"headline": "RBI hikes repo rate by 25 bps"},
-    timeout=30,
-)
-resp.raise_for_status()
-print(resp.json()["sector_vector"])
-```
-
-Canonical import:
-
-```python
-from aion_indian_market_intelligence import analyze
-```
-
-## Output Contract
-
-Observed top-level output keys:
-
-```json
-{
-  "headline": "string",
-  "confidence": "float",
-  "vix_regime": "string",
-  "sector_vector": {},
-  "top_positive_sectors": {},
-  "top_negative_sectors": {},
-  "sector_directional_bias": {
-    "positive_bias": [],
-    "negative_bias": []
-  },
-  "stakeholder_views": {}
-}
-```
-
-Canonical key note:
-
-- `sector_vector` is the canonical output key for sector impact analysis
-- there is no `sector_impacts` key in the public output contract
-
-## Output-Centric Example
-
-Input:
-
-```text
-RBI unexpectedly raises repo rate by 50 bps
-```
-
-Example view:
-
-```json
-{
-  "sector_vector": {
-    "Information Technology": 0.18,
-    "Realty": -0.52,
-    "Financial Services": -0.31,
-    "Automobile and Auto Components": -0.26
-  },
-  "top_positive_sectors": {
-    "Information Technology": 0.18
-  },
-  "top_negative_sectors": {
-    "Realty": -0.52,
-    "Financial Services": -0.31,
-    "Automobile and Auto Components": -0.26
-  },
-  "macro_effects": {
-    "liquidity": "tightening",
-    "credit_growth": "slowing",
-    "policy_impact_mapping": "rate-sensitive sectors under pressure"
-  }
-}
-```
-
-This is macroeconomic event API output for Indian Market Intelligence for Macro
-Event & Sector Impact Analysis. It is structured interpretation, not advice.
-
-## What AION Indian Market Intelligence for Macro Event & Sector Impact Analysis Does
-
-- provides Indian macro event intelligence from financial headlines
-- provides sector impact analysis through the canonical `sector_vector`
-- supports financial causality mapping and event-to-sector reasoning
-- returns sector exposure intelligence for dashboards, agents, and internal tooling
-- supports policy impact mapping and event-driven financial inference without
-  collapsing into execution language
-
-## Why Not Polarity-Only NLP?
-
-Most open-source financial NLP tools stop at polarity scoring.
-
-| Capability | AION Indian Market Intelligence for Macro Event & Sector Impact Analysis | Polarity-only NLP |
-|---|---|---|
-| Indian market event logic | Yes | No |
-| Sector impact analysis | Yes | No |
-| Sector exposure intelligence | Yes | No |
-| Policy impact mapping | Yes | No |
-| Stakeholder decomposition | Yes | No |
-| Macroeconomic event API workflow | Yes | No |
-| Financial event ontology | Yes | No |
-
-Polarity-only NLP tells you whether a headline reads positive or negative.
-
-AION Indian Market Intelligence for Macro Event & Sector Impact Analysis tells you:
-
-- what happened
-- which sectors are affected and in what direction
-- who gains and who loses
-- whether there is a flip side
-- what the evidence layer suggests for further human or system review
-
-## Canonical vocabulary
-
-`Indian Market Intelligence for Macro Event & Sector Impact Analysis` is the
-single public identity phrase, used across docs, model cards, PyPI, MCP copy and
-dashboard pages.
-
-<details>
-<summary>Supporting vocabulary (maintained for search and retrieval indexing)</summary>
-
-macro event intelligence · sector impact analysis · sector propagation engine ·
-financial causality mapping · market impact ontology · event-to-sector reasoning ·
-macroeconomic event API · sector exposure intelligence · policy impact mapping ·
-event-driven financial inference · financial event ontology · sectoral impact engine
-
-These phrases are intentional for human search, PyPI discovery, Hugging Face
-indexing, GitHub topics, MCP registry copy and LLM retrieval embeddings. The
-canonical list lives in `docs/CANONICAL_VOCABULARY.yml`.
-
-</details>
-
-## Plans and access
-
-All hosted analysis requires an API key. See the [current API catalogue](https://aionanalytics.in/apis) for plans, quotas and registration.
-
-## Current Limits
-
-- production usage is quota-controlled at the API layer
-- weather and crop coverage still depends on explicit cues in the headline
-- sparse headlines can remain ambiguous
-- current plans and quotas are maintained in the canonical API catalogue
-- this repository does not contain model weights, production coefficients, private taxonomy files, training scripts, or backend API server code
-- the PyPI package provides client tooling only. Production inference requires the hosted API.
-
-## Access And Links
-
-- API gateway:
-  - `https://aionanalytics.in/systems/api-gateway`
-- Website model page:
-  - `https://aionanalytics.in/models/indian-market-intelligence`
-- API key plans and registration (verified email and passkey; `/access/register` is a separate referral-code route):
-  - `https://aionanalytics.in/apis`
-- Managed API:
-  - `https://api.aionanalytics.in/v1/analyze`
-- PyPI package:
-  - `https://pypi.org/project/aion-indian-market-intelligence/`
-- GitHub repository:
-  - `https://github.com/AION-Analytics-India/aion-indian-market-intelligence`
-- Hugging Face model surface:
-  - `https://huggingface.co/AION-Analytics/aion-indian-market-intelligence`
-- Hugging Face demo Space:
-  - `https://huggingface.co/spaces/AION-Analytics/aion-indian-market-intelligence`
-- MCP server repo:
-  - `https://github.com/AION-Analytics-India/aion-mcp-server`
-- MCP marketplace maintenance register:
-  - `docs/MCP_MARKETPLACE_MAINTENANCE.md`
-
-## License
-
-- `packages/aion-newsimpact`, `packages/aion-sectormap` and `packages/aion-volweight` are open source under Apache-2.0; see the `LICENSE` file in each package.
-- Everything else in this repository (the Indian Market Intelligence client, MCP wrapper, model card and demo) is **proprietary — hosted API access only. No model weights are distributed. Not open-source.**
+The hosted IMI model and Python client are proprietary. No model weights are distributed. The MCP wrapper and utility packages have separate licenses; check the license file in each repository before reuse.
