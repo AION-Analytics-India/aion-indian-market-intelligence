@@ -2,8 +2,11 @@
 
 ## AION Indian Market Intelligence
 
-AION Indian Market Intelligence is an API-first market-intelligence service for
-macro event intelligence and sector impact analysis in Indian financial markets.
+AION Indian Market Intelligence (IMI) is a hosted API for Indian financial event
+context. It interprets one caller-supplied headline, optionally with its
+publication time and article body, and returns structured sector and stakeholder
+context. The caller supplies the news text; this endpoint does not ingest feeds,
+fetch regulatory publications, parse PDFs or filings, or monitor markets.
 
 The public package is a client and MCP wrapper. It does not include production
 model weights, private taxonomy files, calibration coefficients, backend API
@@ -52,11 +55,20 @@ Request:
 ```json
 {
   "headline": "RBI hikes repo rate by 25 bps",
-  "published_at": "2026-06-05T09:00:00+05:30"
+  "published_at": "2026-06-05T09:00:00+05:30",
+  "body": "Optional article text supplied by the caller."
 }
 ```
 
-`published_at` is optional.
+`published_at` and `body` are optional. The body can add context when a
+headline is ambiguous. One request analyzes one item.
+
+Scope:
+
+- one headline per request
+- optional caller-supplied article body and publication time
+- no feed ingestion, webhook stream, PDF parsing, filing parsing, or table parsing in this endpoint
+- regulatory or market text must be supplied by the caller; this client does not fetch source feeds
 
 Response shape:
 
@@ -64,20 +76,36 @@ Response shape:
 {
   "headline": "string",
   "confidence": "float",
+  "macro_signal": "float|null",
   "vix_regime": "string|null",
   "sector_vector": {},
   "top_positive_sectors": {},
   "top_negative_sectors": {},
-  "sector_directional_bias": {
-    "positive_bias": [],
-    "negative_bias": []
-  },
-  "stakeholder_views": {}
+  "stakeholder_views": {},
+  "cultural_context": {
+    "detected": "boolean",
+    "explanation": "string"
+  }
 }
 ```
 
 `sector_vector` is the canonical output key. There is no public
 `sector_impacts` replacement key.
+
+The public response omits internal event identifiers and execution-oriented
+fields. The IMI free API plan is available once per verified user/account and
+includes JSON REST access with `sector_vector` and `stakeholder_views`: 10
+successful requests per rolling 30 days, up to 10 in any rolling 24 hours.
+It requires a verified email and server-verified passkey; free key issuance is
+also limited by device and network. Other quotas and integration entitlements
+depend on the plan. See the [current API catalogue](https://aionanalytics.in/apis).
+
+The website demo key is separate from an API key: it is issued once per email,
+allows up to 3 IMI analyses per browser/device pass and 30 per network per
+rolling 7 days, and cannot call this endpoint. An optional passkey raises the
+demo allowance to 10 analyses per passkey. Passkey verification happens on the
+visitor's device; AION receives no biometric data. See the [website demo access
+page](https://aionanalytics.in/demo/key).
 
 ## MCP Server
 
@@ -96,9 +124,11 @@ MCP tool:
 analyze_news(headline: str, published_at: str | None = None)
 ```
 
-The MCP wrapper returns structured sector impact analysis from the managed API.
-It does not execute trades, route orders, provide advice, or claim guaranteed
-market outcomes.
+The published MCP server exposes `analyze_news(headline, published_at)` and
+returns `sector_vector`. It calls the hosted API; it is not local inference. The
+REST API and Python client expose the documented public response. The MCP
+wrapper does not execute orders, route orders, provide advice, or claim
+guaranteed market outcomes.
 
 ## Public Boundary
 
