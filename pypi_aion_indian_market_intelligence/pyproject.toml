@@ -5,14 +5,14 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "aion-indian-market-intelligence"
 version = "1.0.11"
-description = "Hosted Indian market-intelligence API client for structured financial-event and sector-impact analysis."
+description = "Hosted Indian market intelligence API client for financial event intelligence, macro event analysis, and sector impact analysis."
 readme = "PYPI_DESCRIPTION.md"
 requires-python = ">=3.10"
 license = { text = "Proprietary" }
 authors = [{ name = "AION Analytics", email = "contact@aionanalytics.in" }]
 dependencies = [
   "requests>=2.31",
-  "mcp>=1.27"
+  "mcp>=1.27,<2"
 ]
 keywords = [
   "india",
@@ -26,6 +26,13 @@ keywords = [
   "economic-propagation-analysis",
   "sector-effect-modeling",
   "financial-event-analysis",
+  "financial-event-intelligence",
+  "financial-intelligence",
+  "fintech-infrastructure",
+  "market-infrastructure",
+  "market-monitoring",
+  "ai-agent-tooling",
+  "python-sdk",
   "market-intelligence",
   "mcp-server",
 ]
